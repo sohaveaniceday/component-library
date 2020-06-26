@@ -1,0 +1,131 @@
+import React, { ReactNode, MouseEvent } from 'react'
+import { Icon } from './Icon'
+import { BaseTypes, getClassName } from '../util'
+
+type AccordianProps = {
+  title: string
+  content: ReactNode
+  active: boolean
+  horizontal?: boolean
+  onClick: (event: MouseEvent<HTMLButtonElement>) => void
+  backgroundColor?: string
+  backgroundImage?: string
+  borderColor?: string
+  textColor?: string
+} & BaseTypes<JSX.IntrinsicElements['div']>
+
+export const Accordion = ({
+  title,
+  content,
+  active,
+  onClick,
+  horizontal = false,
+  backgroundColor,
+  backgroundImage,
+  borderColor,
+  textColor,
+}: AccordianProps) => {
+  const wrapperActiveClass = horizontal
+    ? ['w-full']
+    : ['flex-1', 'overflow-y-scroll']
+  const contentActiveClass = horizontal
+    ? ['w-full', 'flex-1', 'border-r-4']
+    : ['h-full']
+  const contentInactiveClass = horizontal ? ['w-0'] : ['h-0']
+
+  return (
+    <div
+      className={getClassName([
+        'flex',
+        [!horizontal, 'flex-col'],
+        [active, [...wrapperActiveClass]],
+      ])}
+      style={{
+        backgroundColor,
+        backgroundImage,
+      }}
+    >
+      <div
+        className={getClassName([
+          [
+            horizontal,
+            ['h-full', 'max-h-full', 'border-b-4', 'w-16'],
+            ['rounded-t-lg', 'h-16', 'px-5', 'items-center', 'border-l-4'],
+          ],
+          'cursor-pointer',
+          'flex',
+          'border-t-4',
+          'border-r-4',
+          'outline-none',
+          'focus:outline-none',
+        ])}
+        style={{
+          ...(!horizontal && { minHeight: '4rem' }),
+          borderColor,
+          transition: 'background-color 0.6s ease ',
+          backgroundColor,
+        }}
+        onClick={onClick}
+      >
+        {horizontal ? (
+          <div className='flex flex-col h-full '>
+            <Icon
+              iconName='chevron'
+              className={getClassName(['m-5', 'h-5', 'w-5', 'text-gray-700'])}
+              style={{
+                ...(active ? {} : { transform: 'rotate(90deg)' }),
+                transition: '0.6s ease',
+                minHeight: '1.25rem',
+                minWidth: '1.25rem',
+              }}
+            />
+            <p
+              className='p-4 mt-auto font-sans text-lg font-bold truncate '
+              style={{
+                color: textColor,
+                transform: 'rotate(180deg)',
+                writingMode: 'vertical-lr',
+              }}
+            >
+              {title}
+            </p>
+          </div>
+        ) : (
+          <>
+            <p
+              className='pr-2 font-sans text-lg font-bold text-left truncate'
+              style={{
+                color: textColor,
+              }}
+            >
+              {title}
+            </p>
+            <Icon
+              iconName='chevron'
+              className={getClassName([
+                'ml-auto',
+                'm-5',
+                'h-5',
+                'w-5',
+                'text-gray-700',
+              ])}
+              style={{
+                transition: '0.6s ease',
+                ...(active && { transform: 'rotate(90deg)' }),
+              }}
+            />
+          </>
+        )}
+      </div>
+      <div
+        className={getClassName([
+          'overflow-auto',
+          [active, [...contentActiveClass], [...contentInactiveClass]],
+        ])}
+        style={{ ...(horizontal && { borderColor }) }}
+      >
+        {content}
+      </div>
+    </div>
+  )
+}
