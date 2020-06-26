@@ -44,7 +44,6 @@ export const Icon: FC<IconProps> = ({
   const iconClass = getClassName([...cssClasses])
 
   const SVG = svgMap[iconName]
-  const iconElement = <SVG className={iconClass} {...svgProps} />
 
-  return iconElement
+  return <SVG className={iconClass} {...svgProps} />
 }
