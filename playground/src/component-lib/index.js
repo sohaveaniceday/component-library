@@ -1,14 +1,8 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var React = require('react');
-var React__default = _interopDefault(React);
-require('axios');
-var reactCompoundSlider = require('react-compound-slider');
-var reactTransitionGroup = require('react-transition-group');
+/* eslint-disable */
+import React, { createContext, useReducer, useState, useEffect, useRef, useContext } from 'react';
+import 'axios';
+import { Slider as Slider$1, Rail, Handles, Tracks, Ticks } from 'react-compound-slider';
+import { CSSTransition as CSSTransition$1 } from 'react-transition-group';
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -212,8 +206,8 @@ var TextInput = function (_a) {
         'rounded',
         'appearance-none',
     ]));
-    return (React__default.createElement("div", { className: getClassName([[disabled, 'cursor-not-allowed'], 'w-full']) },
-        React__default.createElement("input", __assign({ ref: forwardRef, className: inputClassName, type: type, name: name, value: value, onChange: onChange, onKeyDown: onKeyDown, onBlur: onBlur, onFocus: onFocus, autoFocus: autoFocus }, TextInputProps))));
+    return (React.createElement("div", { className: getClassName([[disabled, 'cursor-not-allowed'], 'w-full']) },
+        React.createElement("input", __assign({ ref: forwardRef, className: inputClassName, type: type, name: name, value: value, onChange: onChange, onKeyDown: onKeyDown, onBlur: onBlur, onFocus: onFocus, autoFocus: autoFocus }, TextInputProps))));
 };
 
 var recursivelyUpdateFields = function (parent, _a) {
@@ -235,17 +229,17 @@ var updateObjectStateReducer = function (prevState, update) {
         : applyUpdate(update, prevState);
 };
 
-var StateContext = React.createContext({});
+var StateContext = createContext({});
 
 var useObjectState = function (initialState) {
-    return React.useReducer(updateObjectStateReducer, initialState);
+    return useReducer(updateObjectStateReducer, initialState);
 };
 
 // Our hook
 var useDebounce = function (value, delay) {
     // State and setters for debounced value
-    var _a = React.useState(value), debouncedValue = _a[0], setDebouncedValue = _a[1];
-    React.useEffect(function () {
+    var _a = useState(value), debouncedValue = _a[0], setDebouncedValue = _a[1];
+    useEffect(function () {
         // Set debouncedValue to value (passed in) after the specified delay
         var handler = setTimeout(function () {
             setDebouncedValue(value);
@@ -272,15 +266,15 @@ var useDebounce = function (value, delay) {
 var useEventListener = function (eventName, handler, element) {
     if (element === void 0) { element = document; }
     // Create a ref that stores handler
-    var savedHandler = React.useRef(null);
+    var savedHandler = useRef(null);
     // Update ref.current value if handler changes.
     // This allows our effect below to always get latest handler
     // without us needing to pass it in effect deps array
     // and potentially cause effect to re-run every render.
-    React.useEffect(function () {
+    useEffect(function () {
         savedHandler.current = handler;
     }, [handler]);
-    React.useEffect(function () {
+    useEffect(function () {
         // Make sure element supports addEventListener
         var isSupported = element.addEventListener;
         if (!isSupported)
@@ -314,7 +308,7 @@ var AutoSuggest = function (_a) {
         filteredSuggestions.length > 0 &&
         !!inputValue &&
         !disabled;
-    React.useEffect(function () {
+    useEffect(function () {
         if (!disabled) {
             // Filter our suggestions that don't contain the user's input
             var newFilteredSuggestions = suggestions.reduce(function (acc, current) {
@@ -331,7 +325,7 @@ var AutoSuggest = function (_a) {
             });
         }
     }, [disabled, inputValue, suggestions, updateAutoSuggestState]);
-    React.useEffect(function () {
+    useEffect(function () {
         if (isDisplayingSuggestions && suggestions.length < 1) {
             updateAutoSuggestState(initialAutoSuggestState);
         }
@@ -405,8 +399,8 @@ var AutoSuggest = function (_a) {
     //     })
     //   }
     // }, [activeSuggestion, filteredSuggestions, isDisplayingSuggestions])
-    var suggestionsListComponent = isDisplayingSuggestions ? (React__default.createElement("div", { className: 'absolute z-20 w-full h-64' },
-        React__default.createElement("ul", { className: getClassName([
+    var suggestionsListComponent = isDisplayingSuggestions ? (React.createElement("div", { className: 'absolute z-20 w-full h-64' },
+        React.createElement("ul", { className: getClassName([
                 'max-h-full',
                 'overflow-y-scroll',
                 'text-left',
@@ -416,7 +410,7 @@ var AutoSuggest = function (_a) {
             ]), style: { borderColor: borderColor } }, filteredSuggestions.map(function (_a, index) {
             var name = _a.name, element = _a.element, id = _a.id, _b = _a.disabled, suggestionDisabled = _b === void 0 ? false : _b;
             // const isActiveSuggestion = activeSuggestion === index
-            return (React__default.createElement("li", { id: id, "data-id": id, "data-name": name, className: getClassName([
+            return (React.createElement("li", { id: id, "data-id": id, "data-name": name, className: getClassName([
                     // TO DO: restablish with desktop version
                     // [
                     //   isActiveSuggestion && !suggestionDisabled,
@@ -435,12 +429,12 @@ var AutoSuggest = function (_a) {
                     ],
                     'border-t-2',
                 ]), style: { borderColor: borderColor }, key: name + "-" + index, onClick: suggestionDisabled ? undefined : onClick }, element));
-        })))) : (React__default.createElement(React__default.Fragment, null));
+        })))) : (React.createElement(React.Fragment, null));
     var autoSuggestClassName = getClassName(__spreadArrays(cssClasses));
-    return (React__default.createElement("div", { className: autoSuggestClassName },
-        React__default.createElement("div", { className: 'relative' },
-            React__default.createElement("div", { className: 'inline-flex w-full' },
-                React__default.createElement(TextInput, { name: name, onChange: onChange, value: inputValue, onKeyDown: onKeyDown, onBlur: onBlur, autoFocus: autoFocus, onFocus: onFocus, disabled: disabled, forwardRef: forwardRef, placeholder: placeholder, rounded: rounded && !isDisplayingSuggestions, roundedTop: rounded && isDisplayingSuggestions, border: border, style: { borderColor: borderColor } })),
+    return (React.createElement("div", { className: autoSuggestClassName },
+        React.createElement("div", { className: 'relative' },
+            React.createElement("div", { className: 'inline-flex w-full' },
+                React.createElement(TextInput, { name: name, onChange: onChange, value: inputValue, onKeyDown: onKeyDown, onBlur: onBlur, autoFocus: autoFocus, onFocus: onFocus, disabled: disabled, forwardRef: forwardRef, placeholder: placeholder, rounded: rounded && !isDisplayingSuggestions, roundedTop: rounded && isDisplayingSuggestions, border: border, style: { borderColor: borderColor } })),
             suggestionsListComponent)));
 };
 
@@ -451,7 +445,7 @@ var Skeleton = function (_a) {
     var _b = _a.shape, shape = _b === void 0 ? 'square' : _b, text = _a.text, size = _a.size, _c = _a.cssClasses, cssClasses = _c === void 0 ? [] : _c, children = _a.children, override = _a.override, _d = _a.animation, animation = _d === void 0 ? true : _d, skeletonProps = __rest(_a, ["shape", "text", "size", "cssClasses", "children", "override", "animation"]);
     var animationClass = animation ? ['shimmer-animation'] : ['bg-gray-300'];
     if (children || override)
-        return (React__default.createElement("div", __assign({ className: getClassName(__spreadArrays(cssClasses, animationClass)) }, skeletonProps), children));
+        return (React.createElement("div", __assign({ className: getClassName(__spreadArrays(cssClasses, animationClass)) }, skeletonProps), children));
     var translateHeightOrWidthClassNameValue = function (sizeString, multiplier) {
         if (multiplier === void 0) { multiplier = 1; }
         var translateString = function (size) {
@@ -506,9 +500,9 @@ var Skeleton = function (_a) {
             : [];
     var elementClassName = getClassName(__spreadArrays(conditionalElementClassName, cssClasses, animationClass));
     var shapeWrapperClassName = getClassName(getShapeSizeClassNames(size));
-    var ElementComponent = function () { return (React__default.createElement("div", __assign({ className: elementClassName }, skeletonProps))); };
-    return text ? (React__default.createElement(ElementComponent, null)) : (React__default.createElement("div", { className: shapeWrapperClassName },
-        React__default.createElement(ElementComponent, null)));
+    var ElementComponent = function () { return (React.createElement("div", __assign({ className: elementClassName }, skeletonProps))); };
+    return text ? (React.createElement(ElementComponent, null)) : (React.createElement("div", { className: shapeWrapperClassName },
+        React.createElement(ElementComponent, null)));
 };
 
 var Tick = "<svg aria-hidden=\"true\" focusable=\"false\" data-prefix=\"far\" data-icon=\"check-circle\" class=\"svg-inline--fa fa-check-circle fa-w-16\" role=\"img\" \n  xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\">\n  <path fill=\"currentColor\" d=\"M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z\"></path>\n</svg>";
@@ -538,7 +532,7 @@ var Icon = function (_a) {
     var iconName = _a.iconName, _b = _a.cssClasses, cssClasses = _b === void 0 ? [] : _b, svgProps = __rest(_a, ["iconName", "cssClasses"]);
     var iconClass = getClassName(__spreadArrays(cssClasses));
     var SVG = svgMap[iconName];
-    return React__default.createElement(SVG, __assign({ className: iconClass }, svgProps));
+    return React.createElement(SVG, __assign({ className: iconClass }, svgProps));
 };
 
 var Accordion = function (_a) {
@@ -550,7 +544,7 @@ var Accordion = function (_a) {
         ? ['w-full', 'flex-1', 'border-r-4']
         : ['h-full'];
     var contentInactiveClass = horizontal ? ['w-0'] : ['h-0'];
-    return (React__default.createElement("div", { className: getClassName([
+    return (React.createElement("div", { className: getClassName([
             'flex',
             [!horizontal, 'flex-col'],
             [active, __spreadArrays(wrapperActiveClass)],
@@ -558,7 +552,7 @@ var Accordion = function (_a) {
             backgroundColor: backgroundColor,
             backgroundImage: backgroundImage,
         } },
-        React__default.createElement("div", { className: getClassName([
+        React.createElement("div", { className: getClassName([
                 [
                     horizontal,
                     ['h-full', 'max-h-full', 'border-b-4', 'w-16'],
@@ -570,24 +564,24 @@ var Accordion = function (_a) {
                 'border-r-4',
                 'outline-none',
                 'focus:outline-none',
-            ]), style: __assign(__assign({}, (!horizontal && { minHeight: '4rem' })), { borderColor: borderColor, transition: 'background-color 0.6s ease ', backgroundColor: backgroundColor }), onClick: onClick }, horizontal ? (React__default.createElement("div", { className: 'flex flex-col h-full ' },
-            React__default.createElement(Icon, { iconName: 'chevron', className: getClassName(['m-5', 'h-5', 'w-5', 'text-gray-700']), style: __assign(__assign({}, (active ? {} : { transform: 'rotate(90deg)' })), { transition: '0.6s ease', minHeight: '1.25rem', minWidth: '1.25rem' }) }),
-            React__default.createElement("p", { className: 'p-4 mt-auto font-sans text-lg font-bold truncate ', style: {
+            ]), style: __assign(__assign({}, (!horizontal && { minHeight: '4rem' })), { borderColor: borderColor, transition: 'background-color 0.6s ease ', backgroundColor: backgroundColor }), onClick: onClick }, horizontal ? (React.createElement("div", { className: 'flex flex-col h-full ' },
+            React.createElement(Icon, { iconName: 'chevron', className: getClassName(['m-5', 'h-5', 'w-5', 'text-gray-700']), style: __assign(__assign({}, (active ? {} : { transform: 'rotate(90deg)' })), { transition: '0.6s ease', minHeight: '1.25rem', minWidth: '1.25rem' }) }),
+            React.createElement("p", { className: 'p-4 mt-auto font-sans text-lg font-bold truncate ', style: {
                     color: textColor,
                     transform: 'rotate(180deg)',
                     writingMode: 'vertical-lr',
-                } }, title))) : (React__default.createElement(React__default.Fragment, null,
-            React__default.createElement("p", { className: 'pr-2 font-sans text-lg font-bold text-left truncate', style: {
+                } }, title))) : (React.createElement(React.Fragment, null,
+            React.createElement("p", { className: 'pr-2 font-sans text-lg font-bold text-left truncate', style: {
                     color: textColor,
                 } }, title),
-            React__default.createElement(Icon, { iconName: 'chevron', className: getClassName([
+            React.createElement(Icon, { iconName: 'chevron', className: getClassName([
                     'ml-auto',
                     'm-5',
                     'h-5',
                     'w-5',
                     'text-gray-700',
                 ]), style: __assign({ transition: '0.6s ease' }, (active && { transform: 'rotate(90deg)' })) })))),
-        React__default.createElement("div", { className: getClassName([
+        React.createElement("div", { className: getClassName([
                 'overflow-auto',
                 [active, __spreadArrays(contentActiveClass), __spreadArrays(contentInactiveClass)],
             ]), style: __assign({}, (horizontal && { borderColor: borderColor })) }, content)));
@@ -605,7 +599,7 @@ var Badge = function (_a) {
         'truncate',
         [size === 'xs', ['h-8', 'px-3'], 'px-4'],
     ]));
-    return React__default.createElement("div", { className: badgeClassName }, content);
+    return React.createElement("div", { className: badgeClassName }, content);
 };
 
 var Button = function (_a) {
@@ -618,13 +612,13 @@ var Button = function (_a) {
         [rounded, 'rounded-full', 'rounded'],
         [border, 'border-4'],
     ]));
-    return (React__default.createElement("button", __assign({ onClick: onClick, className: buttonClassName, type: type }, buttonProps), value));
+    return (React.createElement("button", __assign({ onClick: onClick, className: buttonClassName, type: type }, buttonProps), value));
 };
 
 var FullPageWrapper = function (_a) {
     var children = _a.children;
     // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
-    var _b = React.useState(window.innerHeight * 0.01), vh = _b[0], setVh = _b[1];
+    var _b = useState(window.innerHeight * 0.01), vh = _b[0], setVh = _b[1];
     // Then we set the value in the --vh custom property to the root of the document
     document.documentElement.style.setProperty('--vh', vh + "px");
     var handleResize = function () {
@@ -632,7 +626,7 @@ var FullPageWrapper = function (_a) {
         setVh(window.innerHeight * 0.01);
     };
     var deboundedVh = useDebounce(vh, 400);
-    React.useEffect(function () {
+    useEffect(function () {
         // Make sure we have a deboundedVh
         if (deboundedVh) {
             // Fire off our function
@@ -642,7 +636,7 @@ var FullPageWrapper = function (_a) {
     useEventListener('resize', handleResize, window);
     useEventListener('orientationchange', handleResize, window);
     useEventListener('deviceorientation', handleResize, window);
-    return (React__default.createElement("div", { style: {
+    return (React.createElement("div", { style: {
             height: 'calc(var(--vh, 1vh) * 100)',
         } }, children));
 };
@@ -658,26 +652,26 @@ var HoldingPage = function (_a) {
         [scrollable, 'overflow-scroll'],
         'focus:outline-none',
     ]));
-    return onClick ? (React__default.createElement("button", __assign({ onClick: onClick, className: holdingPageCLassName }, holdingPageProps), children)) : (React__default.createElement("div", __assign({ className: holdingPageCLassName }, holdingPageProps), children));
+    return onClick ? (React.createElement("button", __assign({ onClick: onClick, className: holdingPageCLassName }, holdingPageProps), children)) : (React.createElement("div", __assign({ className: holdingPageCLassName }, holdingPageProps), children));
 };
 
 var Slider = function (_a) {
     var cssClasses = _a.cssClasses, _b = _a.range, min = _b[0], max = _b[1], defaultValues = _a.defaultValues, _c = _a.displayTicks, displayTicks = _c === void 0 ? false : _c, _d = _a.displayTracks, displayTracks = _d === void 0 ? false : _d, onUpdate = _a.onUpdate, onChange = _a.onChange, _e = _a.handleColor, handleColor = _e === void 0 ? 'blue' : _e, _f = _a.trackColor, trackColor = _f === void 0 ? 'white' : _f;
     var SliderClassName = getClassName(__spreadArrays(cssClasses));
-    return (React__default.createElement("div", { className: SliderClassName },
-        React__default.createElement(reactCompoundSlider.Slider, { mode: 2, step: 1, domain: [min, max], rootStyle: {
+    return (React.createElement("div", { className: SliderClassName },
+        React.createElement(Slider$1, { mode: 2, step: 1, domain: [min, max], rootStyle: {
                 position: 'relative',
                 width: '100%',
             }, onUpdate: onUpdate, onChange: onChange, values: defaultValues },
-            React__default.createElement(reactCompoundSlider.Rail, null, function (_a) {
+            React.createElement(Rail, null, function (_a) {
                 var getRailProps = _a.getRailProps;
-                return (React__default.createElement(React__default.Fragment, null,
-                    React__default.createElement("div", __assign({ className: 'absolute w-full cursor-pointer', style: {
+                return (React.createElement(React.Fragment, null,
+                    React.createElement("div", __assign({ className: 'absolute w-full cursor-pointer', style: {
                             height: 42,
                             transform: 'translate(0%, -50%)',
                             borderRadius: 7,
                         } }, getRailProps())),
-                    React__default.createElement("div", { className: 'absolute w-full', style: {
+                    React.createElement("div", { className: 'absolute w-full', style: {
                             position: 'absolute',
                             width: '100%',
                             height: 14,
@@ -687,12 +681,12 @@ var Slider = function (_a) {
                             backgroundColor: trackColor,
                         } })));
             }),
-            React__default.createElement(reactCompoundSlider.Handles, null, function (_a) {
+            React.createElement(Handles, null, function (_a) {
                 var handles = _a.handles, getHandleProps = _a.getHandleProps;
-                return (React__default.createElement(React__default.Fragment, null, handles.map(function (_a) {
+                return (React.createElement(React.Fragment, null, handles.map(function (_a) {
                     var percent = _a.percent, id = _a.id, value = _a.value;
-                    return (React__default.createElement("div", { key: id },
-                        React__default.createElement("div", __assign({ className: 'absolute cursor-pointer', style: {
+                    return (React.createElement("div", { key: id },
+                        React.createElement("div", __assign({ className: 'absolute cursor-pointer', style: {
                                 left: percent + "%",
                                 transform: 'translate(-50%, -50%)',
                                 WebkitTapHighlightColor: 'rgba(0,0,0,0)',
@@ -701,7 +695,7 @@ var Slider = function (_a) {
                                 height: 42,
                                 backgroundColor: 'none',
                             } }, getHandleProps(id))),
-                        React__default.createElement("div", { role: 'slider', "aria-valuemin": min, "aria-valuemax": max, "aria-valuenow": value, className: 'absolute', style: {
+                        React.createElement("div", { role: 'slider', "aria-valuemin": min, "aria-valuemax": max, "aria-valuenow": value, className: 'absolute', style: {
                                 left: percent + "%",
                                 transform: 'translate(-50%, -50%)',
                                 zIndex: 2,
@@ -713,11 +707,11 @@ var Slider = function (_a) {
                             } })));
                 })));
             }),
-            displayTracks && (React__default.createElement(reactCompoundSlider.Tracks, { left: false, right: false }, function (_a) {
+            displayTracks && (React.createElement(Tracks, { left: false, right: false }, function (_a) {
                 var tracks = _a.tracks, getTrackProps = _a.getTrackProps;
-                return (React__default.createElement(React__default.Fragment, null, tracks.map(function (_a) {
+                return (React.createElement(React.Fragment, null, tracks.map(function (_a) {
                     var id = _a.id, source = _a.source, target = _a.target;
-                    return (React__default.createElement("div", __assign({ key: id, className: 'absolute bg-blue-700 cursor-pointer', style: {
+                    return (React.createElement("div", __assign({ key: id, className: 'absolute bg-blue-700 cursor-pointer', style: {
                             transform: 'translate(0%, -50%)',
                             height: 14,
                             zIndex: 1,
@@ -727,18 +721,18 @@ var Slider = function (_a) {
                         } }, getTrackProps())));
                 })));
             })),
-            displayTicks && (React__default.createElement(reactCompoundSlider.Ticks, { count: 5 }, function (_a) {
+            displayTicks && (React.createElement(Ticks, { count: 5 }, function (_a) {
                 var ticks = _a.ticks;
-                return (React__default.createElement("div", { className: 'slider-ticks' }, ticks.map(function (_a) {
+                return (React.createElement("div", { className: 'slider-ticks' }, ticks.map(function (_a) {
                     var id = _a.id, percent = _a.percent;
-                    return (React__default.createElement("div", { key: id },
-                        React__default.createElement("div", { className: 'absolute bg-gray-700', style: {
+                    return (React.createElement("div", { key: id },
+                        React.createElement("div", { className: 'absolute bg-gray-700', style: {
                                 marginTop: 14,
                                 width: 1,
                                 height: 5,
                                 left: percent + "%",
                             } }),
-                        React__default.createElement("div", { className: 'absolute text-center', style: {
+                        React.createElement("div", { className: 'absolute text-center', style: {
                                 marginTop: 22,
                                 fontSize: 10,
                                 marginLeft: -(100 / 5) / 2 + "%",
@@ -749,12 +743,12 @@ var Slider = function (_a) {
             })))));
 };
 
-var TransitionContext = React.createContext({
+var TransitionContext = createContext({
     parent: {},
 });
 var useIsInitialRender = function () {
-    var isInitialRender = React.useRef(true);
-    React.useEffect(function () {
+    var isInitialRender = useRef(true);
+    useEffect(function () {
         isInitialRender.current = false;
     }, []);
     return isInitialRender.current;
@@ -775,7 +769,7 @@ var CSSTransition = function (_a) {
         var _a;
         classes.length && (_a = node.classList).remove.apply(_a, classes);
     };
-    return (React__default.createElement(reactTransitionGroup.CSSTransition, { appear: show, unmountOnExit: true, in: show, addEndListener: function (node, done) {
+    return (React.createElement(CSSTransition$1, { appear: show, unmountOnExit: true, in: show, addEndListener: function (node, done) {
             node.addEventListener('transitionend', done, false);
         }, onEnter: function (node) {
             addClasses(node, __spreadArrays(enterClasses, enterFromClasses));
@@ -795,30 +789,19 @@ var CSSTransition = function (_a) {
 };
 var Transition = function (_a) {
     var show = _a.show, rest = __rest(_a, ["show"]);
-    var parent = React.useContext(TransitionContext).parent;
+    var parent = useContext(TransitionContext).parent;
     var isInitialRender = useIsInitialRender();
     var isChild = show === undefined;
     if (isChild) {
-        return React__default.createElement(CSSTransition, __assign({ show: parent.show }, rest));
+        return React.createElement(CSSTransition, __assign({ show: parent.show }, rest));
     }
-    return (React__default.createElement(TransitionContext.Provider, { value: {
+    return (React.createElement(TransitionContext.Provider, { value: {
             parent: {
                 show: show,
                 isInitialRender: isInitialRender,
             },
         } },
-        React__default.createElement(CSSTransition, __assign({ show: show }, rest))));
+        React.createElement(CSSTransition, __assign({ show: show }, rest))));
 };
 
-exports.Accordion = Accordion;
-exports.AutoSuggest = AutoSuggest;
-exports.Badge = Badge;
-exports.Button = Button;
-exports.FullPageWrapper = FullPageWrapper;
-exports.HoldingPage = HoldingPage;
-exports.Icon = Icon;
-exports.Skeleton = Skeleton;
-exports.Slider = Slider;
-exports.TextInput = TextInput;
-exports.Transition = Transition;
-exports.getClassName = getClassName;
+export { Accordion, AutoSuggest, Badge, Button, FullPageWrapper, HoldingPage, Icon, Skeleton, Slider, TextInput, Transition, getClassName };

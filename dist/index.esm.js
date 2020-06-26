@@ -531,8 +531,7 @@ var Icon = function (_a) {
     var iconName = _a.iconName, _b = _a.cssClasses, cssClasses = _b === void 0 ? [] : _b, svgProps = __rest(_a, ["iconName", "cssClasses"]);
     var iconClass = getClassName(__spreadArrays(cssClasses));
     var SVG = svgMap[iconName];
-    var iconElement = React.createElement(SVG, __assign({ className: iconClass }, svgProps));
-    return iconElement;
+    return React.createElement(SVG, __assign({ className: iconClass }, svgProps));
 };
 
 var Accordion = function (_a) {
@@ -652,7 +651,7 @@ var HoldingPage = function (_a) {
         [scrollable, 'overflow-scroll'],
         'focus:outline-none',
     ]));
-    return (React.createElement("button", __assign({ onClick: onClick, className: holdingPageCLassName }, holdingPageProps), children));
+    return onClick ? (React.createElement("button", __assign({ onClick: onClick, className: holdingPageCLassName }, holdingPageProps), children)) : (React.createElement("div", __assign({ className: holdingPageCLassName }, holdingPageProps), children));
 };
 
 var Slider = function (_a) {
