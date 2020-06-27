@@ -9,7 +9,7 @@ import React, {
 } from 'react'
 import { getClassName, BaseTypes } from '../../util'
 import { TextInput } from './TextInput'
-import { useObjectState } from '../customHooks'
+import { useObjectState } from '../../customHooks'
 
 export type SuggestionProps = {
   name: string

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ReactElement, FC } from 'react'
-import { useDebounce, useEventListener } from './customHooks'
+import { useDebounce, useEventListener } from '../customHooks'
 import { BaseTypes } from '../util'
 
 type FullPageWrapperProps = {} & BaseTypes<JSX.IntrinsicElements['div']>
