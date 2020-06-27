@@ -6,7 +6,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var React = require('react');
 var React__default = _interopDefault(React);
-require('axios');
+var axios = _interopDefault(require('axios'));
 var reactCompoundSlider = require('react-compound-slider');
 var reactTransitionGroup = require('react-transition-group');
 
@@ -236,9 +236,107 @@ var updateObjectStateReducer = function (prevState, update) {
 };
 
 var StateContext = React.createContext({});
+var ObjectStateProvider = function (_a) {
+    var initialState = _a.initialState, children = _a.children;
+    return (React__default.createElement(StateContext.Provider, { value: React.useReducer(updateObjectStateReducer, initialState) }, children));
+};
+var useServiceState = function () { return React.useContext(StateContext); };
 
 var useObjectState = function (initialState) {
     return React.useReducer(updateObjectStateReducer, initialState);
+};
+
+var useFetch = function () {
+    var _a = React.useState(null), data = _a[0], setData = _a[1];
+    var _b = React.useState(['', {}]), request = _b[0], setRequest = _b[1];
+    var _c = React.useState(false), isLoading = _c[0], setIsLoading = _c[1];
+    var _d = React.useState(null), error = _d[0], setError = _d[1];
+    React.useEffect(function () {
+        var url = request[0], config = request[1];
+        var fetchData = function () { return __awaiter(void 0, void 0, void 0, function () {
+            var result, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        setIsLoading(true);
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, axios(url, config)];
+                    case 2:
+                        result = _a.sent();
+                        setData(result.data);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        setError(error_1);
+                        return [3 /*break*/, 4];
+                    case 4:
+                        setIsLoading(false);
+                        return [2 /*return*/];
+                }
+            });
+        }); };
+        if (url)
+            fetchData();
+    }, [request]);
+    var clearData = function () { return setData(null); };
+    return { data: data, isLoading: isLoading, error: error, setRequest: setRequest, clearData: clearData };
+};
+
+var useCustomForm = function (_a) {
+    var initialValues = _a.initialValues, onSubmit = _a.onSubmit, initialInput = _a.initialInput;
+    var _b = React.useState(initialValues || {}), values = _b[0], setValues = _b[1];
+    var _c = React.useState({}), errors = _c[0], setErrors = _c[1];
+    var _d = React.useState({}), touched = _d[0], setTouched = _d[1];
+    // const [onSubmitting, setOnSubmitting] = useState<boolean>(false)
+    // const [onBlur, setOnBlur] = useState<boolean>(false)
+    var _e = React.useState(undefined), currentValue = _e[0], setCurrentValue = _e[1];
+    var _f = React.useState(initialInput), currentInput = _f[0], setCurrentInput = _f[1];
+    var handleChange = function (value, name) {
+        var _a;
+        setValues(__assign(__assign({}, values), (_a = {}, _a[name] = value, _a)));
+        setCurrentValue(value);
+    };
+    var handleFocus = function (_a) {
+        var target = _a.target;
+        var name = target.name;
+        setCurrentInput(name);
+    };
+    var handleBlur = function (event) {
+        var _a;
+        var target = event.target;
+        var name = target.name;
+        setTouched(__assign(__assign({}, touched), (_a = {}, _a[name] = true, _a)));
+        setErrors(__assign({}, errors));
+        setCurrentValue(undefined);
+        setCurrentInput(undefined);
+    };
+    var handleSubmit = function (event) {
+        if (onSubmit) {
+            if (event)
+                event.preventDefault();
+            setErrors(__assign({}, errors));
+            setCurrentValue(undefined);
+            setCurrentInput(undefined);
+            onSubmit({ values: values, errors: errors });
+        }
+    };
+    var clearValues = function () {
+        setValues(initialValues || {});
+    };
+    return {
+        clearValues: clearValues,
+        values: values,
+        errors: errors,
+        touched: touched,
+        handleChange: handleChange,
+        handleBlur: handleBlur,
+        handleFocus: handleFocus,
+        handleSubmit: handleSubmit,
+        currentValue: currentValue,
+        currentInput: currentInput,
+    };
 };
 
 // Our hook
@@ -922,8 +1020,15 @@ exports.Button = Button;
 exports.FullPageWrapper = FullPageWrapper;
 exports.HoldingPage = HoldingPage;
 exports.Icon = Icon;
+exports.ObjectStateProvider = ObjectStateProvider;
 exports.Skeleton = Skeleton;
 exports.Slider = Slider;
 exports.TextInput = TextInput;
 exports.Transition = Transition;
 exports.getClassName = getClassName;
+exports.useCustomForm = useCustomForm;
+exports.useDebounce = useDebounce;
+exports.useEventListener = useEventListener;
+exports.useFetch = useFetch;
+exports.useObjectState = useObjectState;
+exports.useServiceState = useServiceState;
