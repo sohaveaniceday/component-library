@@ -1,14 +1,8 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var React = require('react');
-var React__default = _interopDefault(React);
-require('axios');
-var reactCompoundSlider = require('react-compound-slider');
-var reactTransitionGroup = require('react-transition-group');
+/* eslint-disable */
+import React__default, { createContext, useReducer, useState, useEffect, useRef, createElement, useContext } from 'react';
+import 'axios';
+import { Slider as Slider$1, Rail, Handles, Tracks, Ticks } from 'react-compound-slider';
+import { CSSTransition as CSSTransition$1 } from 'react-transition-group';
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -235,17 +229,17 @@ var updateObjectStateReducer = function (prevState, update) {
         : applyUpdate(update, prevState);
 };
 
-var StateContext = React.createContext({});
+var StateContext = createContext({});
 
 var useObjectState = function (initialState) {
-    return React.useReducer(updateObjectStateReducer, initialState);
+    return useReducer(updateObjectStateReducer, initialState);
 };
 
 // Our hook
 var useDebounce = function (value, delay) {
     // State and setters for debounced value
-    var _a = React.useState(value), debouncedValue = _a[0], setDebouncedValue = _a[1];
-    React.useEffect(function () {
+    var _a = useState(value), debouncedValue = _a[0], setDebouncedValue = _a[1];
+    useEffect(function () {
         // Set debouncedValue to value (passed in) after the specified delay
         var handler = setTimeout(function () {
             setDebouncedValue(value);
@@ -272,15 +266,15 @@ var useDebounce = function (value, delay) {
 var useEventListener = function (eventName, handler, element) {
     if (element === void 0) { element = document; }
     // Create a ref that stores handler
-    var savedHandler = React.useRef(null);
+    var savedHandler = useRef(null);
     // Update ref.current value if handler changes.
     // This allows our effect below to always get latest handler
     // without us needing to pass it in effect deps array
     // and potentially cause effect to re-run every render.
-    React.useEffect(function () {
+    useEffect(function () {
         savedHandler.current = handler;
     }, [handler]);
-    React.useEffect(function () {
+    useEffect(function () {
         // Make sure element supports addEventListener
         var isSupported = element.addEventListener;
         if (!isSupported)
@@ -314,7 +308,7 @@ var AutoSuggest = function (_a) {
         filteredSuggestions.length > 0 &&
         !!inputValue &&
         !disabled;
-    React.useEffect(function () {
+    useEffect(function () {
         if (!disabled) {
             // Filter our suggestions that don't contain the user's input
             var newFilteredSuggestions = suggestions.reduce(function (acc, current) {
@@ -331,7 +325,7 @@ var AutoSuggest = function (_a) {
             });
         }
     }, [disabled, inputValue, suggestions, updateAutoSuggestState]);
-    React.useEffect(function () {
+    useEffect(function () {
         if (isDisplayingSuggestions && suggestions.length < 1) {
             updateAutoSuggestState(initialAutoSuggestState);
         }
@@ -513,13 +507,13 @@ var Skeleton = function (_a) {
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-var _ref = /*#__PURE__*/React.createElement("path", {
+var _ref = /*#__PURE__*/createElement("path", {
   fill: "currentColor",
   d: "M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z"
 });
 
 function SvgTick(props) {
-  return /*#__PURE__*/React.createElement("svg", _extends({
+  return /*#__PURE__*/createElement("svg", _extends({
     "aria-hidden": "true",
     "data-prefix": "far",
     "data-icon": "check-circle",
@@ -530,13 +524,13 @@ function SvgTick(props) {
 
 function _extends$1() { _extends$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$1.apply(this, arguments); }
 
-var _ref$1 = /*#__PURE__*/React.createElement("path", {
+var _ref$1 = /*#__PURE__*/createElement("path", {
   fill: "currentColor",
   d: "M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
 });
 
 function SvgEdit(props) {
-  return /*#__PURE__*/React.createElement("svg", _extends$1({
+  return /*#__PURE__*/createElement("svg", _extends$1({
     "aria-hidden": "true",
     "data-prefix": "fas",
     "data-icon": "edit",
@@ -547,13 +541,13 @@ function SvgEdit(props) {
 
 function _extends$2() { _extends$2 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$2.apply(this, arguments); }
 
-var _ref$2 = /*#__PURE__*/React.createElement("path", {
+var _ref$2 = /*#__PURE__*/createElement("path", {
   fill: "currentColor",
   d: "M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
 });
 
 function SvgChevron(props) {
-  return /*#__PURE__*/React.createElement("svg", _extends$2({
+  return /*#__PURE__*/createElement("svg", _extends$2({
     "aria-hidden": "true",
     "data-prefix": "fas",
     "data-icon": "chevron-right",
@@ -564,13 +558,13 @@ function SvgChevron(props) {
 
 function _extends$3() { _extends$3 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$3.apply(this, arguments); }
 
-var _ref$3 = /*#__PURE__*/React.createElement("path", {
+var _ref$3 = /*#__PURE__*/createElement("path", {
   fill: "currentColor",
   d: "M128 160h320v192H128V160zm400 96c0 26.51 21.49 48 48 48v96c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48v-96c26.51 0 48-21.49 48-48s-21.49-48-48-48v-96c0-26.51 21.49-48 48-48h480c26.51 0 48 21.49 48 48v96c-26.51 0-48 21.49-48 48zm-48-104c0-13.255-10.745-24-24-24H120c-13.255 0-24 10.745-24 24v208c0 13.255 10.745 24 24 24h336c13.255 0 24-10.745 24-24V152z"
 });
 
 function SvgMovie(props) {
-  return /*#__PURE__*/React.createElement("svg", _extends$3({
+  return /*#__PURE__*/createElement("svg", _extends$3({
     "aria-hidden": "true",
     "data-prefix": "fas",
     "data-icon": "ticket-alt",
@@ -581,13 +575,13 @@ function SvgMovie(props) {
 
 function _extends$4() { _extends$4 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$4.apply(this, arguments); }
 
-var _ref$4 = /*#__PURE__*/React.createElement("path", {
+var _ref$4 = /*#__PURE__*/createElement("path", {
   fill: "currentColor",
   d: "M104 224H24c-13.255 0-24 10.745-24 24v240c0 13.255 10.745 24 24 24h80c13.255 0 24-10.745 24-24V248c0-13.255-10.745-24-24-24zM64 472c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zM384 81.452c0 42.416-25.97 66.208-33.277 94.548h101.723c33.397 0 59.397 27.746 59.553 58.098.084 17.938-7.546 37.249-19.439 49.197l-.11.11c9.836 23.337 8.237 56.037-9.308 79.469 8.681 25.895-.069 57.704-16.382 74.757 4.298 17.598 2.244 32.575-6.148 44.632C440.202 511.587 389.616 512 346.839 512l-2.845-.001c-48.287-.017-87.806-17.598-119.56-31.725-15.957-7.099-36.821-15.887-52.651-16.178-6.54-.12-11.783-5.457-11.783-11.998v-213.77c0-3.2 1.282-6.271 3.558-8.521 39.614-39.144 56.648-80.587 89.117-113.111 14.804-14.832 20.188-37.236 25.393-58.902C282.515 39.293 291.817 0 312 0c24 0 72 8 72 81.452z"
 });
 
 function SvgThumb(props) {
-  return /*#__PURE__*/React.createElement("svg", _extends$4({
+  return /*#__PURE__*/createElement("svg", _extends$4({
     "aria-hidden": "true",
     "data-prefix": "fas",
     "data-icon": "thumbs-up",
@@ -598,13 +592,13 @@ function SvgThumb(props) {
 
 function _extends$5() { _extends$5 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$5.apply(this, arguments); }
 
-var _ref$5 = /*#__PURE__*/React.createElement("path", {
+var _ref$5 = /*#__PURE__*/createElement("path", {
   fill: "currentColor",
   d: "M377.941 169.941V216H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.568 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296h243.882v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.568 0-33.941l-86.059-86.059c-15.119-15.12-40.971-4.412-40.971 16.97z"
 });
 
 function SvgArrows(props) {
-  return /*#__PURE__*/React.createElement("svg", _extends$5({
+  return /*#__PURE__*/createElement("svg", _extends$5({
     "aria-hidden": "true",
     "data-prefix": "fas",
     "data-icon": "arrows-alt-h",
@@ -615,13 +609,13 @@ function SvgArrows(props) {
 
 function _extends$6() { _extends$6 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$6.apply(this, arguments); }
 
-var _ref$6 = /*#__PURE__*/React.createElement("path", {
+var _ref$6 = /*#__PURE__*/createElement("path", {
   fill: "currentColor",
   d: "M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"
 });
 
 function SvgArrow(props) {
-  return /*#__PURE__*/React.createElement("svg", _extends$6({
+  return /*#__PURE__*/createElement("svg", _extends$6({
     "aria-hidden": "true",
     "data-prefix": "fas",
     "data-icon": "arrow-left",
@@ -729,7 +723,7 @@ var Button = function (_a) {
 var FullPageWrapper = function (_a) {
     var children = _a.children;
     // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
-    var _b = React.useState(window.innerHeight * 0.01), vh = _b[0], setVh = _b[1];
+    var _b = useState(window.innerHeight * 0.01), vh = _b[0], setVh = _b[1];
     // Then we set the value in the --vh custom property to the root of the document
     document.documentElement.style.setProperty('--vh', vh + "px");
     var handleResize = function () {
@@ -737,7 +731,7 @@ var FullPageWrapper = function (_a) {
         setVh(window.innerHeight * 0.01);
     };
     var deboundedVh = useDebounce(vh, 400);
-    React.useEffect(function () {
+    useEffect(function () {
         // Make sure we have a deboundedVh
         if (deboundedVh) {
             // Fire off our function
@@ -770,11 +764,11 @@ var Slider = function (_a) {
     var cssClasses = _a.cssClasses, _b = _a.range, min = _b[0], max = _b[1], defaultValues = _a.defaultValues, _c = _a.displayTicks, displayTicks = _c === void 0 ? false : _c, _d = _a.displayTracks, displayTracks = _d === void 0 ? false : _d, onUpdate = _a.onUpdate, onChange = _a.onChange, _e = _a.handleColor, handleColor = _e === void 0 ? 'blue' : _e, _f = _a.trackColor, trackColor = _f === void 0 ? 'white' : _f;
     var SliderClassName = getClassName(__spreadArrays(cssClasses));
     return (React__default.createElement("div", { className: SliderClassName },
-        React__default.createElement(reactCompoundSlider.Slider, { mode: 2, step: 1, domain: [min, max], rootStyle: {
+        React__default.createElement(Slider$1, { mode: 2, step: 1, domain: [min, max], rootStyle: {
                 position: 'relative',
                 width: '100%',
             }, onUpdate: onUpdate, onChange: onChange, values: defaultValues },
-            React__default.createElement(reactCompoundSlider.Rail, null, function (_a) {
+            React__default.createElement(Rail, null, function (_a) {
                 var getRailProps = _a.getRailProps;
                 return (React__default.createElement(React__default.Fragment, null,
                     React__default.createElement("div", __assign({ className: 'absolute w-full cursor-pointer', style: {
@@ -792,7 +786,7 @@ var Slider = function (_a) {
                             backgroundColor: trackColor,
                         } })));
             }),
-            React__default.createElement(reactCompoundSlider.Handles, null, function (_a) {
+            React__default.createElement(Handles, null, function (_a) {
                 var handles = _a.handles, getHandleProps = _a.getHandleProps;
                 return (React__default.createElement(React__default.Fragment, null, handles.map(function (_a) {
                     var percent = _a.percent, id = _a.id, value = _a.value;
@@ -818,7 +812,7 @@ var Slider = function (_a) {
                             } })));
                 })));
             }),
-            displayTracks && (React__default.createElement(reactCompoundSlider.Tracks, { left: false, right: false }, function (_a) {
+            displayTracks && (React__default.createElement(Tracks, { left: false, right: false }, function (_a) {
                 var tracks = _a.tracks, getTrackProps = _a.getTrackProps;
                 return (React__default.createElement(React__default.Fragment, null, tracks.map(function (_a) {
                     var id = _a.id, source = _a.source, target = _a.target;
@@ -832,7 +826,7 @@ var Slider = function (_a) {
                         } }, getTrackProps())));
                 })));
             })),
-            displayTicks && (React__default.createElement(reactCompoundSlider.Ticks, { count: 5 }, function (_a) {
+            displayTicks && (React__default.createElement(Ticks, { count: 5 }, function (_a) {
                 var ticks = _a.ticks;
                 return (React__default.createElement("div", { className: 'slider-ticks' }, ticks.map(function (_a) {
                     var id = _a.id, percent = _a.percent;
@@ -854,12 +848,12 @@ var Slider = function (_a) {
             })))));
 };
 
-var TransitionContext = React.createContext({
+var TransitionContext = createContext({
     parent: {},
 });
 var useIsInitialRender = function () {
-    var isInitialRender = React.useRef(true);
-    React.useEffect(function () {
+    var isInitialRender = useRef(true);
+    useEffect(function () {
         isInitialRender.current = false;
     }, []);
     return isInitialRender.current;
@@ -880,7 +874,7 @@ var CSSTransition = function (_a) {
         var _a;
         classes.length && (_a = node.classList).remove.apply(_a, classes);
     };
-    return (React__default.createElement(reactTransitionGroup.CSSTransition, { appear: show, unmountOnExit: true, in: show, addEndListener: function (node, done) {
+    return (React__default.createElement(CSSTransition$1, { appear: show, unmountOnExit: true, in: show, addEndListener: function (node, done) {
             node.addEventListener('transitionend', done, false);
         }, onEnter: function (node) {
             addClasses(node, __spreadArrays(enterClasses, enterFromClasses));
@@ -900,7 +894,7 @@ var CSSTransition = function (_a) {
 };
 var Transition = function (_a) {
     var show = _a.show, rest = __rest(_a, ["show"]);
-    var parent = React.useContext(TransitionContext).parent;
+    var parent = useContext(TransitionContext).parent;
     var isInitialRender = useIsInitialRender();
     var isChild = show === undefined;
     if (isChild) {
@@ -915,15 +909,4 @@ var Transition = function (_a) {
         React__default.createElement(CSSTransition, __assign({ show: show }, rest))));
 };
 
-exports.Accordion = Accordion;
-exports.AutoSuggest = AutoSuggest;
-exports.Badge = Badge;
-exports.Button = Button;
-exports.FullPageWrapper = FullPageWrapper;
-exports.HoldingPage = HoldingPage;
-exports.Icon = Icon;
-exports.Skeleton = Skeleton;
-exports.Slider = Slider;
-exports.TextInput = TextInput;
-exports.Transition = Transition;
-exports.getClassName = getClassName;
+export { Accordion, AutoSuggest, Badge, Button, FullPageWrapper, HoldingPage, Icon, Skeleton, Slider, TextInput, Transition, getClassName };

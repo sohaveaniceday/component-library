@@ -1,8 +1,9 @@
 import typescript from 'rollup-plugin-typescript2'
-import svg from 'rollup-plugin-svg'
+import svg from 'rollup-plugin-svg-import'
 import postcss from 'rollup-plugin-postcss'
 import del from 'rollup-plugin-delete'
 import pkg from './package.json'
+import svgr from '@svgr/rollup'
 
 export default [
   {
@@ -20,6 +21,7 @@ export default [
       del({ targets: ['dist/*', 'playground/src/component-lib'] }),
       typescript(),
       svg(),
+      svgr(),
       postcss({
         plugins: [],
       }),
