@@ -6,7 +6,7 @@
   "files": [
     "dist"
   ],
-  "version": "0.7.0",
+  "version": "0.7.1",
   "typings": "dist/index.d.ts",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
