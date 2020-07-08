@@ -7,6 +7,7 @@ import {
   Thumb,
   Arrows,
   Arrow,
+  Help,
 } from '../images/svgs'
 import { BaseTypes, getClassName } from '../util'
 
@@ -20,6 +21,7 @@ const svgMap: {
   thumb: Thumb,
   arrows: Arrows,
   arrow: Arrow,
+  help: Help,
 }
 
 export type IconName =
@@ -30,6 +32,7 @@ export type IconName =
   | 'thumb'
   | 'arrows'
   | 'arrow'
+  | 'help'
 
 type IconProps = {
   iconName: string

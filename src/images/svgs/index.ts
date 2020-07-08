@@ -5,4 +5,5 @@ import { ReactComponent as Movie } from './movie.svg'
 import { ReactComponent as Thumb } from './thumb.svg'
 import { ReactComponent as Arrows } from './arrows.svg'
 import { ReactComponent as Arrow } from './arrow.svg'
-export { Tick, Edit, Chevron, Movie, Thumb, Arrows, Arrow }
+import { ReactComponent as Help } from './help.svg'
+export { Tick, Edit, Chevron, Movie, Thumb, Arrows, Arrow, Help }
