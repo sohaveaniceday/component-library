@@ -9,7 +9,7 @@ type ButtonProps = {
 
 export const Button: FC<ButtonProps> = ({
   value,
-  cssClasses,
+  cssClasses = [],
   onClick,
   type,
   border = false,
