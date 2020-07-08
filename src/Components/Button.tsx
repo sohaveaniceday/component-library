@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { BaseTypes, getClassName } from '../util'
 
 type ButtonProps = {
-  cssClasses: string[]
+  cssClasses?: string[]
   border?: boolean
   rounded?: boolean
 } & BaseTypes<JSX.IntrinsicElements['button']>
