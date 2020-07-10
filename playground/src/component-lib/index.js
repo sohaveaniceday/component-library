@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React__default, { createContext, useReducer, useContext, useState, useEffect, useRef, createElement } from 'react';
+import React__default, { createContext, useReducer, useContext, useState, useEffect, useRef, useCallback, useMemo, createElement } from 'react';
 import axios from 'axios';
 import { Slider as Slider$1, Rail, Handles, Tracks, Ticks } from 'react-compound-slider';
 import { CSSTransition as CSSTransition$1 } from 'react-transition-group';
@@ -361,6 +361,25 @@ var useDebounce = function (value, delay) {
     return debouncedValue;
 };
 
+var useHover = function () {
+    var _a = useState(false), value = _a[0], setValue = _a[1];
+    var ref = useRef();
+    var handleMouseOver = function () { return setValue(true); };
+    var handleMouseOut = function () { return setValue(false); };
+    useEffect(function () {
+        var node = ref.current;
+        if (node) {
+            node.addEventListener('mouseover', handleMouseOver);
+            node.addEventListener('mouseout', handleMouseOut);
+            return function () {
+                node.removeEventListener('mouseover', handleMouseOver);
+                node.removeEventListener('mouseout', handleMouseOut);
+            };
+        }
+    }, [ref.current]);
+    return [ref, value];
+};
+
 var useEventListener = function (eventName, handler, element) {
     if (element === void 0) { element = document; }
     // Create a ref that stores handler
@@ -389,6 +408,194 @@ var useEventListener = function (eventName, handler, element) {
         };
     }, [eventName, element] // Re-run if eventName or element changes
     );
+};
+
+var useKeyPress = function (targetKey) {
+    var _a = useState(false), keyPressed = _a[0], setKeyPressed = _a[1];
+    var downHandler = function (_a) {
+        var key = _a.key;
+        if (key === targetKey)
+            setKeyPressed(true);
+    };
+    var upHandler = function (_a) {
+        var key = _a.key;
+        if (key === targetKey)
+            setKeyPressed(false);
+    };
+    useEffect(function () {
+        window.addEventListener('keydown', downHandler);
+        window.addEventListener('keyup', upHandler);
+        return function () {
+            window.removeEventListener('keydown', downHandler);
+            window.removeEventListener('keyup', upHandler);
+        };
+    }, []);
+    return keyPressed;
+};
+
+var useInfiniteScroll = function (callback) {
+    var _a = useState(false), isFetching = _a[0], setIsFetching = _a[1];
+    useEffect(function () {
+        window.addEventListener('scroll', handleScroll);
+        return function () { return window.removeEventListener('scroll', handleScroll); };
+    }, []);
+    useEffect(function () {
+        if (!isFetching)
+            return;
+        callback();
+    }, [isFetching]);
+    var handleScroll = function () {
+        if (window.innerHeight + document.documentElement.scrollTop !==
+            document.documentElement.offsetHeight)
+            return;
+        setIsFetching(true);
+    };
+    return [isFetching, setIsFetching];
+};
+
+var usePersistFn = function (fn) {
+    var ref = useRef(function () {
+        throw new Error('Cannot call function while rendering.');
+    });
+    ref.current = fn;
+    var persistFn = useCallback(function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return ref.current.apply(ref, args);
+    }, [ref]);
+    return persistFn;
+};
+
+var useMount = function (fn) {
+    var fnPersist = usePersistFn(fn);
+    useEffect(function () {
+        if (fnPersist && typeof fnPersist === 'function') {
+            fnPersist();
+        }
+    }, []);
+};
+
+var useUnmount = function (fn) {
+    var fnRef = useRef(fn);
+    fnRef.current = fn;
+    useEffect(function () { return function () {
+        if (fnRef.current && typeof fnRef.current === 'function') {
+            fnRef.current();
+        }
+    }; }, []);
+};
+
+var useUpdateEffect = function (effect, deps) {
+    var isMounted = useRef(false);
+    useEffect(function () {
+        if (!isMounted.current) {
+            isMounted.current = true;
+        }
+        else {
+            return effect();
+        }
+    }, deps);
+};
+
+var useUpdate = function () {
+    var _a = useState(0), setState = _a[1];
+    return useCallback(function () { return setState(function (num) { return num + 1; }); }, []);
+};
+
+var useToggle = function (defaultValue, reverseValue) {
+    var _a = useState(defaultValue), state = _a[0], setState = _a[1];
+    var reverseValueOrigin = useMemo(function () { return (reverseValue === undefined ? !defaultValue : reverseValue); }, [reverseValue]);
+    var actions = useMemo(function () {
+        var toggle = function (value) {
+            if (value !== undefined) {
+                setState(value);
+                return;
+            }
+            setState(function (s) {
+                return s === defaultValue ? reverseValueOrigin : defaultValue;
+            });
+        };
+        var setLeft = function () { return setState(defaultValue); };
+        var setRight = function () { return setState(reverseValueOrigin); };
+        return {
+            toggle: toggle,
+            setLeft: setLeft,
+            setRight: setRight,
+        };
+    }, [setState]);
+    return [state, actions];
+};
+
+var useBoolean = function (defaultValue) {
+    if (defaultValue === void 0) { defaultValue = false; }
+    var _a = useToggle(defaultValue), state = _a[0], toggle = _a[1].toggle;
+    var actions = useMemo(function () {
+        var setTrue = function () { return toggle(true); };
+        var setFalse = function () { return toggle(false); };
+        return { toggle: toggle, setTrue: setTrue, setFalse: setFalse };
+    }, [toggle]);
+    return [state, actions];
+};
+
+function isFunction(obj) {
+    return typeof obj === 'function';
+}
+function useStorageState(storage, key, defaultValue) {
+    var _a = useState(function () { return getStoredValue(); }), state = _a[0], setState = _a[1];
+    function getStoredValue() {
+        var raw = storage.getItem(key);
+        if (raw) {
+            try {
+                return JSON.parse(raw);
+            }
+            catch (e) { }
+        }
+        if (isFunction(defaultValue)) {
+            return defaultValue();
+        }
+        return defaultValue;
+    }
+    function updateState(value) {
+        if (typeof value === 'undefined') {
+            storage.removeItem(key);
+            setState(undefined);
+        }
+        else if (isFunction(value)) {
+            var previousState = getStoredValue();
+            var currentState = value(previousState);
+            storage.setItem(key, JSON.stringify(currentState));
+            setState(currentState);
+        }
+        else {
+            storage.setItem(key, JSON.stringify(value));
+            setState(value);
+        }
+    }
+    useUpdateEffect(function () {
+        setState(getStoredValue());
+    }, [key]);
+    return [state, updateState];
+}
+
+var useLocalStorageState = function (key, defaultValue) {
+    return useStorageState(localStorage, key, defaultValue);
+};
+
+var useSessionStorageState = function (key, defaultValue) {
+    return useStorageState(sessionStorage, key, defaultValue);
+};
+
+var usePrevious = function (state, compare) {
+    var prevRef = useRef();
+    var curRef = useRef();
+    var needUpdate = typeof compare === 'function' ? compare(curRef.current, state) : true;
+    if (needUpdate) {
+        prevRef.current = curRef.current;
+        curRef.current = state;
+    }
+    return prevRef.current;
 };
 
 var AutoSuggest = function (_a) {
@@ -1026,4 +1233,4 @@ var Transition = function (_a) {
         React__default.createElement(CSSTransition, __assign({ show: show }, rest))));
 };
 
-export { Accordion, AutoSuggest, Badge, Button, FullPageWrapper, HoldingPage, Icon, ObjectStateProvider, Skeleton, Slider, TextInput, Transition, getClassName, useCustomForm, useDebounce, useEventListener, useFetch, useObjectState, useServiceState };
+export { Accordion, AutoSuggest, Badge, Button, FullPageWrapper, HoldingPage, Icon, ObjectStateProvider, Skeleton, Slider, TextInput, Transition, getClassName, useBoolean, useCustomForm, useDebounce, useEventListener, useFetch, useHover, useInfiniteScroll, useKeyPress, useLocalStorageState, useMount, useObjectState, usePrevious, useServiceState, useSessionStorageState, useToggle, useUnmount, useUpdate };
