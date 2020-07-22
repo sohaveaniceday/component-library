@@ -47,6 +47,7 @@
     "global": "^4.4.0",
     "react": "^16.10.2",
     "react-compound-slider": "^2.5.0",
+    "react-router-dom": "^5.2.0",
     "react-transition-group": "^4.4.1",
     "tailwindcss": "^1.4.6"
   },
