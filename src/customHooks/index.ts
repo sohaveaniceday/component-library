@@ -40,3 +40,5 @@ export * from './useLockBodyScroll'
 export * from './useDelayMounting'
 // A Hook to trigger popover actions
 export * from './usePopoverActions'
+// A Hook that detects outside element clicks
+export * from './useOutsideClick'

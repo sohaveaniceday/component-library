@@ -4,7 +4,7 @@ import { baseClass } from './baseClass'
 import { BaseTypes } from '../../util/types'
 import { getClassName } from '../../util'
 import { useLockBodyScroll, useDelayedUnmounting } from '../../customHooks'
-import { Modal } from '../Modal'
+import { Modal } from '../'
 
 import './index.css'
 
@@ -14,6 +14,7 @@ export type SlideOverProps = {
   content?: React.ReactNode
   children?: React.ReactChild
   footer?: React.ReactNode
+  background?: React.ReactNode
   isVisible: boolean
 } & BaseTypes<JSX.IntrinsicElements['section']>
 
@@ -23,6 +24,7 @@ export const SlideOver: React.FC<SlideOverProps> = ({
   content,
   children,
   footer,
+  background,
   cssClasses = [],
   isVisible,
   ...slideOverProps
@@ -66,15 +68,20 @@ export const SlideOver: React.FC<SlideOverProps> = ({
     </section>
   )
 
-  return mountingState !== 'unmounted' ? (
-    modal ? (
-      <Modal visible centerContent={false}>
-        {slideOver}
-      </Modal>
-    ) : (
-      slideOver
-    )
-  ) : (
-    <></>
+  return (
+    <>
+      {background}
+      {mountingState !== 'unmounted' ? (
+        modal ? (
+          <Modal visible centerContent={false}>
+            {slideOver}
+          </Modal>
+        ) : (
+          slideOver
+        )
+      ) : (
+        <></>
+      )}
+    </>
   )
 }

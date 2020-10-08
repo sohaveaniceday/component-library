@@ -86,7 +86,7 @@ export const Modal: React.FC<ModalProps> = ({
                 {closable && (
                   <div className='absolute top-0 right-0 pt-4 pr-4 sm:block'>
                     <Icon
-                      iconName='cross'
+                      iconName='times'
                       isButton
                       onClick={onClose}
                       cssClasses={[`h-6`, `w-6`]}

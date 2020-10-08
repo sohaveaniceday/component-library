@@ -1,9 +1,12 @@
-import { ReactComponent as Tick } from './tick.svg'
-import { ReactComponent as Edit } from './edit.svg'
-import { ReactComponent as Chevron } from './chevron.svg'
-import { ReactComponent as Movie } from './movie.svg'
-import { ReactComponent as Thumb } from './thumb.svg'
-import { ReactComponent as Arrows } from './arrows.svg'
-import { ReactComponent as Arrow } from './arrow.svg'
-import { ReactComponent as Help } from './help.svg'
-export { Tick, Edit, Chevron, Movie, Thumb, Arrows, Arrow, Help }
+import Tick from './tick.svg'
+import Edit from './edit.svg'
+import Chevron from './chevron.svg'
+import Movie from './movie.svg'
+import Thumb from './thumb.svg'
+import Arrows from './arrows.svg'
+import Arrow from './arrow.svg'
+import Help from './help.svg'
+
+import Times from './times.svg'
+
+export { Tick, Edit, Chevron, Movie, Thumb, Arrows, Arrow, Help, Times }

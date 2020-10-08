@@ -1,4 +1,8 @@
-import React, { FC } from 'react'
+import React from 'react'
+
+import { getClassName } from '../util'
+import { BaseTypes } from '../util/types'
+
 import {
   Tick,
   Edit,
@@ -8,12 +12,10 @@ import {
   Arrows,
   Arrow,
   Help,
+  Times,
 } from '../images/svgs'
-import { BaseTypes, getClassName } from '../util'
 
-const svgMap: {
-  [key: string]: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
-} = {
+export const svgMap: any = {
   tick: Tick,
   edit: Edit,
   chevron: Chevron,
@@ -22,6 +24,7 @@ const svgMap: {
   arrows: Arrows,
   arrow: Arrow,
   help: Help,
+  times: Times,
 }
 
 export type IconName =
@@ -30,26 +33,27 @@ export type IconName =
   | 'chevron'
   | 'movie'
   | 'thumb'
+  | 'thumb'
   | 'arrows'
   | 'arrow'
   | 'help'
+  | 'times'
 
-type IconProps = {
-  iconName: string
-  cssClasses?: string[]
+export type IconProps = {
+  iconName: IconName
   isButton?: boolean
+  cssClasses?: string[]
 } & BaseTypes<JSX.IntrinsicElements['svg']>
 
-export const Icon: FC<IconProps> = ({
+export const Icon: React.FC<IconProps> = ({
   iconName,
-  cssClasses = [],
   isButton,
+  cssClasses = [],
   ...svgProps
 }: IconProps) => {
   const iconClass = getClassName([...cssClasses])
 
   const SVG = svgMap[iconName]
-
   const iconElement = <SVG className={iconClass} {...svgProps} />
 
   return isButton ? (
