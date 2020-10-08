@@ -5,6 +5,7 @@ export const useEventListener = (
   handler: Function,
   element: EventTarget = document
 ): void => {
+  if (!element) return
   // Create a ref that stores handler
   const savedHandler = useRef<Function | null>(null)
 

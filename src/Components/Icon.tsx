@@ -13,6 +13,10 @@ import {
   Arrow,
   Help,
   Times,
+  Loader,
+  Plus,
+  Avatar,
+  SearchOutline,
 } from '../images/svgs'
 
 export const svgMap: any = {
@@ -25,6 +29,10 @@ export const svgMap: any = {
   arrow: Arrow,
   help: Help,
   times: Times,
+  loader: Loader,
+  plus: Plus,
+  avatar: Avatar,
+  searchOutline: SearchOutline,
 }
 
 export type IconName =
@@ -38,6 +46,10 @@ export type IconName =
   | 'arrow'
   | 'help'
   | 'times'
+  | 'loader'
+  | 'plus'
+  | 'avatar'
+  | 'searchOutline'
 
 export type IconProps = {
   iconName: IconName

@@ -8,6 +8,8 @@ import { Modal } from '../'
 
 import './index.css'
 
+export * from './SlideOverContent'
+
 export type SlideOverProps = {
   modal?: boolean
   header?: React.ReactNode
