@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
-import { BaseTypes, getClassName } from '../util'
+import { BaseTypes, getClassName, Shade, Color } from '../util'
 
-type ButtonProps = {
+export type ButtonProps = {
   cssClasses?: string[]
   border?: boolean
   rounded?: boolean
-  color?: string
+  color?: Color
+  shade?: Shade
 } & BaseTypes<JSX.IntrinsicElements['button']>
 
 export const Button: FC<ButtonProps> = ({
@@ -13,14 +14,15 @@ export const Button: FC<ButtonProps> = ({
   cssClasses = [],
   onClick,
   type,
-  color = 'blue-500',
+  color = 'blue',
+  shade = '500',
   border = false,
   rounded = false,
   ...buttonProps
 }: ButtonProps) => {
   const buttonClassName = getClassName([
     ...cssClasses,
-    `bg-${color}`,
+    `bg-${color}-${shade}`,
     'px-4',
     'py-2',
     'font-bold',
