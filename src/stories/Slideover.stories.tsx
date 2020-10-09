@@ -9,7 +9,7 @@ import {
   Icon,
   SlideOverContent,
 } from '../Components'
-import { clientDatum, userData } from './data'
+import { clientDatum, userData } from '../Components/SlideOver/dummyData'
 
 export default {
   title: 'SlideOver',
@@ -22,40 +22,9 @@ export const Template: Story<SlideOverProps> = () => {
   return (
     <SlideOver
       isVisible={isSlideOverVisible}
-      modal
-      header={
-        <header className='px-4 py-6 space-y-1 bg-indigo-600 sm:px-6'>
-          <div className='flex items-center justify-between space-x-3'>
-            <h2 className='text-lg font-medium leading-7 text-white truncate'>
-              {currentEntity.name}
-            </h2>
-            <div className='flex items-center h-7'>
-              <Icon
-                iconName='times'
-                isButton
-                cssClasses={[
-                  'w-6',
-                  'h-6',
-                  'text-indigo-200',
-                  'hover:text-white',
-                ]}
-                onClick={() => setIsSlideOverVisible(false)}
-              />
-            </div>
-          </div>
-          <p className='text-indigo-300'>{'Client'}</p>
-        </header>
-      }
-      footer={
-        <Button
-          type='button'
-          onClick={() => setIsSlideOverVisible(false)}
-          value='Close'
-          color='indigo'
-          rounded
-          cssClasses={['focus:outline-none']}
-        />
-      }
+      headerTitle={currentEntity.name}
+      subHeader={'Client'}
+      setIsSlideOverVisible={setIsSlideOverVisible}
       background={
         <Button
           type='button'

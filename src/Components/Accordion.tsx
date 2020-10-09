@@ -2,7 +2,7 @@ import React, { ReactNode, MouseEvent } from 'react'
 import { Icon } from './Icon'
 import { BaseTypes, getClassName } from '../util'
 
-type AccordianProps = {
+export type AccordionProps = {
   title: string
   content: ReactNode
   active: boolean
@@ -24,7 +24,7 @@ export const Accordion = ({
   backgroundImage,
   borderColor,
   textColor,
-}: AccordianProps) => {
+}: AccordionProps) => {
   const wrapperActiveClass = horizontal
     ? ['w-full']
     : ['flex-1', 'overflow-y-scroll']

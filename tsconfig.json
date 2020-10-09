@@ -72,6 +72,6 @@
     "src/components",
     "custom.d.ts",
     "src/customHooks",
-    "src/stories/data.ts"
+    "src/Components/SlideOver/data.ts"
   ]
 }
