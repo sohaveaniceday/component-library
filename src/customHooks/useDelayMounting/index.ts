@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 export const useDelayedUnmounting = (
-  time = 500
+  time = 480
 ): { mountingState: string; show: () => void; hide: () => void } => {
   const [mountingState, setMountingState] = useState('unmounted')
   const show = () => {
