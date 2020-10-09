@@ -178,9 +178,11 @@ export const SlideOverContent: React.FC<SlideOverContentProps> = ({
                           </div>
                         </div>
                       )}
-                      <div className='break-all'>
-                        <div>{name}</div>
-                        {entityType === 'users' && <div>{emailAddress}</div>}
+                      <div>
+                        <div className='truncate'>{name}</div>
+                        {entityType === 'users' && (
+                          <div className='truncate'>{emailAddress}</div>
+                        )}
                       </div>
                     </span>
                     {isRemovable && (

@@ -53,7 +53,7 @@ export const SlideOver: React.FC<SlideOverProps> = ({
           [mountingState === 'unmounting', 'end-animation'],
         ])}
       >
-        <div className='w-screen h-screen max-w-xs sm:max-w-md'>
+        <div className='w-screen h-full max-w-xs sm:max-w-md'>
           <div className='flex flex-col h-full bg-white divide-y divide-gray-200 shadow-xl'>
             <div className='flex-1 h-0 pb-6 space-y-6 overflow-y-scroll'>
               {header}
