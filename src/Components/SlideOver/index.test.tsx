@@ -5,8 +5,7 @@ import {
   RenderResult,
   fireEvent,
 } from '@testing-library/react'
-import { SlideOver, SlideOverProps, SlideOverContent } from './index'
-import { clientDatum, userData } from './dummyData'
+import { SlideOver, SlideOverProps } from './index'
 import '@testing-library/jest-dom'
 
 afterEach((): void => {
@@ -22,19 +21,23 @@ describe('<SlideOver>', () => {
     isVisible: true,
   }
 
-  const getModelContent = (render: RenderResult): HTMLElement | null =>
+  const getSlideOverContent = (render: RenderResult): HTMLElement | null =>
     render.queryByText('Slideover content')
+
+  test('handles render children', (): void => {
+    const component = render(
+      <SlideOver {...mockProps} isVisible>
+        <div data-testid='close' />
+      </SlideOver>
+    )
+    expect(getSlideOverContent(component)).toBeInTheDocument()
+  })
 
   test('handles slideover to be visible and not visible', (): void => {
     const firstRender = render(<SlideOver {...mockProps} isVisible={false} />)
-    expect(getModelContent(firstRender)).not.toBeInTheDocument()
+    expect(getSlideOverContent(firstRender)).not.toBeInTheDocument()
     const secondRender = render(<SlideOver {...mockProps} isVisible />)
-    expect(getModelContent(secondRender)).toBeInTheDocument()
-  })
-
-  test('handles render children', (): void => {
-    const component = render(<SlideOver {...mockProps} isVisible />)
-    expect(getModelContent(component)).toBeInTheDocument()
+    expect(getSlideOverContent(secondRender)).toBeInTheDocument()
   })
 
   test('handles click on close button', (): void => {
