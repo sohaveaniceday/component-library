@@ -4,9 +4,9 @@ import { withInfo } from '@storybook/addon-info'
 import Layout from './Layout'
 
 addDecorator((storyFn) => <Layout>{storyFn()}</Layout>)
-addDecorator(
-  withInfo({
-    inline: true,
-    propTablesExclude: [Layout],
-  })
-)
+// addDecorator(
+//   withInfo({
+//     inline: true,
+//     propTablesExclude: [Layout],
+//   })
+// )

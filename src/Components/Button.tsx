@@ -26,7 +26,8 @@ export const Button: FC<ButtonProps> = ({
     'px-4',
     'py-2',
     'font-bold',
-    'text-white',
+    'text-gray-200',
+    'hover:text-white',
     [rounded, 'rounded-full', 'rounded'],
     [border, 'border-4'],
   ])
