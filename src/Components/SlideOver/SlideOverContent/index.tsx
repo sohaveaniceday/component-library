@@ -1,7 +1,6 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState } from 'react'
 import {
   Icon,
-  Dropdown,
   getClassName,
   Avatar,
   createNotificationClassName,

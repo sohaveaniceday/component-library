@@ -25,11 +25,7 @@ describe('<SlideOver>', () => {
     render.queryByText('Slideover content')
 
   test('handles render children', (): void => {
-    const component = render(
-      <SlideOver {...mockProps} isVisible>
-        <div data-testid='close' />
-      </SlideOver>
-    )
+    const component = render(<SlideOver {...mockProps} isVisible />)
     expect(getSlideOverContent(component)).toBeInTheDocument()
   })
 
