@@ -26,12 +26,14 @@ export const Template: Story<SlideOverProps> = () => {
       subHeader={'Client'}
       setIsSlideOverVisible={setIsSlideOverVisible}
       background={
-        <Button
-          type='button'
-          onClick={() => setIsSlideOverVisible(true)}
-          value='Open'
-          cssClasses={['focus:outline-none']}
-        />
+        <div style={{ height: '110vh' }}>
+          <Button
+            type='button'
+            onClick={() => setIsSlideOverVisible(true)}
+            value='Open'
+            cssClasses={['focus:outline-none']}
+          />
+        </div>
       }
       content={
         <SlideOverContent data={userData} currentEntity={currentEntity} />
