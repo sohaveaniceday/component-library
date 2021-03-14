@@ -66,8 +66,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test": "jest",
-    "start": "start-storybook -p 6006",
-    "pre-commit": "test"
+    "start": "start-storybook -p 6006"
   },
   "eslintConfig": {
     "extends": "react-app",
