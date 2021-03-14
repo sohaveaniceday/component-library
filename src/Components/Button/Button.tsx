@@ -38,7 +38,6 @@ export const Button: FC<ButtonProps> = ({
       type={type}
       {...buttonProps}
     >
-      {console.log('hello')}
       {value}
     </button>
   )
