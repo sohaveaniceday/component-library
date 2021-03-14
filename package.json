@@ -63,8 +63,12 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test": "jest",
-    "start": "start-storybook -p 6006",
-    "postinstall": "husky install"
+    "start": "start-storybook -p 6006"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo fail && exit 1"
+    }
   },
   "eslintConfig": {
     "extends": "react-app",
