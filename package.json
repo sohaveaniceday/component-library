@@ -12,7 +12,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "lint-staged": {
-    "src/**/*.js": "eslint && jest"
+    "src/**/*": "eslint && jest"
   },
   "husky": {
     "hooks": {
