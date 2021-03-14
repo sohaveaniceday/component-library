@@ -11,14 +11,6 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "lint-staged": {
-    "src/**/*": "test"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "test"
-    }
-  },
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@babel/preset-env": "^7.11.5",
@@ -63,6 +55,7 @@
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5"
   },
+  "private": true,
   "scripts": {
     "tailwind": "postcss src/input.css -o src/index.css",
     "build": "rollup -c",
@@ -71,7 +64,7 @@
     "build-storybook": "build-storybook",
     "test": "jest",
     "start": "start-storybook -p 6006",
-    "prepare": "husky install"
+    "postinstall": "husky install"
   },
   "eslintConfig": {
     "extends": "react-app",
