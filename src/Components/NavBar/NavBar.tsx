@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
-import { getClassName } from '../util'
-import { useBoolean } from '../customHooks'
+import { getClassName } from '../../util'
+import { useBoolean } from '../../customHooks'
 import { Link } from 'react-router-dom'
 
 type LinkProps = {

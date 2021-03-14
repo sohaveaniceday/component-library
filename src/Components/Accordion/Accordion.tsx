@@ -1,6 +1,6 @@
 import React, { ReactNode, MouseEvent } from 'react'
-import { Icon } from './Icon'
-import { BaseTypes, getClassName } from '../util'
+import { Icon } from '../Icon'
+import { BaseTypes, getClassName } from '../../util'
 
 export type AccordionProps = {
   title: string

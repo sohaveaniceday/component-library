@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { BaseTypes, getClassName, Shade, Color } from '../util'
+import { BaseTypes, getClassName, Shade, Color } from '../../util'
 
 export type ButtonProps = {
   cssClasses?: string[]

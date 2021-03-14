@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { getClassName } from '../util'
-import { BaseTypes } from '../util/types'
+import { getClassName } from '../../util'
+import { BaseTypes } from '../../util/types'
 
 import {
   Tick,
@@ -17,7 +17,7 @@ import {
   Plus,
   Avatar,
   SearchOutline,
-} from '../images/svgs'
+} from '../../images/svgs'
 
 export const svgMap: any = {
   tick: Tick,
