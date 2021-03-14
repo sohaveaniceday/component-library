@@ -69,6 +69,18 @@
     "extends": "react-app",
     "tailwindcss": "^1.4.6"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "git add",
+      "jest --bail --findRelatedTests"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
     "@tailwindcss/ui": "^0.3.0",
     "@types/match-sorter": "^4.0.0",
