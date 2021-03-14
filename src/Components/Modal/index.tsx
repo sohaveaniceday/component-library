@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { baseClass } from './baseClass'
-import { BaseTypes } from '../../util/types'
+import { BaseTypes } from '../../types'
 import { getClassName } from '../../util'
 import { usePopoverActions } from '../../customHooks'
 import { Transition } from '../Transition'

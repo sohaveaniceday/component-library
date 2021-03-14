@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { getClassName } from '../../util'
-import { BaseTypes } from '../../util/types'
+import { BaseTypes } from '../../types'
 
 import {
   Tick,

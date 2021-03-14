@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { baseClass } from './baseClass'
-import { BaseTypes } from '../../util/types'
+import { BaseTypes } from '../../types'
 import { getClassName } from '../../util'
 import { useLockBodyScroll, useDelayedUnmounting } from '../../customHooks'
 import { Modal, Icon, Button } from '../'

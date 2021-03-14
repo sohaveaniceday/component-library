@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BaseTypes, Size, Color } from '../../util/types'
+import { BaseTypes, Size, Color } from '../../types'
 import { getClassName, translateHeightOrWidthClassNameValue } from '../../util'
 import { Icon } from '../Icon'
 
