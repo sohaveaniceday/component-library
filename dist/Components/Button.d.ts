@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import { BaseTypes } from '../util';
-declare type ButtonProps = {
+import { BaseTypes, Shade, Color } from '../util';
+export declare type ButtonProps = {
     cssClasses?: string[];
     border?: boolean;
     rounded?: boolean;
-    color?: string;
+    color?: Color;
+    shade?: Shade;
 } & BaseTypes<JSX.IntrinsicElements['button']>;
 export declare const Button: FC<ButtonProps>;
-export {};

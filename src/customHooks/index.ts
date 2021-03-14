@@ -34,3 +34,11 @@ export * from './useLocalStorage'
 export * from './useSessionStorage'
 // A Hook to store the previous value
 export * from './usePrevious'
+// A Hook to stop the body scrolling
+export * from './useLockBodyScroll'
+// A Hook to delay mounting component to allow for transitions in Tailwind
+export * from './useDelayMounting'
+// A Hook to trigger popover actions
+export * from './usePopoverActions'
+// A Hook that detects outside element clicks
+export * from './useOutsideClick'

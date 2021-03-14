@@ -8,3 +8,8 @@ export * from './HoldingPage';
 export * from './Icon';
 export * from './Slider';
 export * from './Transition';
+export * from './SlideOver';
+export * from './Modal';
+export * from './Dropdown';
+export * from './Avatar';
+export * from './Search';
