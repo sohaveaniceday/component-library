@@ -64,23 +64,12 @@
     "build-storybook": "build-storybook",
     "test": "jest",
     "start": "start-storybook -p 6006",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "husky install && shx rm -rf .git/hooks && shx ln -s ../.husky .git/hooks"
   },
   "eslintConfig": {
     "extends": "react-app",
     "tailwindcss": "^1.4.6"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "git add",
-      "jest --bail --findRelatedTests"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "dependencies": {
     "@tailwindcss/ui": "^0.3.0",
