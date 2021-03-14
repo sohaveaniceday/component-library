@@ -1,0 +1,9 @@
+{
+  "hooks": {
+    "pre-commit": "lint-staged",
+    "pre-push": "concurrently --kill-others-on-fail \"yarn test\"",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+    "post-merge": "yarnhook",
+    "post-rewrite": "yarnhook"
+  }
+}
