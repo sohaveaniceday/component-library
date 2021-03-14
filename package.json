@@ -37,7 +37,6 @@
     "@storybook/preset-create-react-app": "^3.1.4",
     "@storybook/react": "^6.0.26",
     "@svgr/plugin-jsx": "^5.4.0",
-    "@svgr/rollup": "^5.4.0",
     "@svgr/webpack": "^5.4.0",
     "@testing-library/jest-dom": "^5.10.1",
     "@testing-library/react": "^10.3.0",
@@ -61,11 +60,6 @@
     "react-docgen-typescript-loader": "^3.7.2",
     "react-is": "^16.13.1",
     "react-test-renderer": "^17.0.1",
-    "rollup": "^2.18.0",
-    "rollup-plugin-delete": "^2.0.0",
-    "rollup-plugin-postcss": "^3.1.2",
-    "rollup-plugin-svg-import": "^1.5.1",
-    "rollup-plugin-typescript2": "^0.27.1",
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5"
   },
@@ -76,7 +70,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test": "jest",
-    "start": "start-storybook -p 6006"
+    "start": "start-storybook -p 6006",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": "react-app",
