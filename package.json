@@ -65,11 +65,6 @@
     "test": "jest",
     "start": "start-storybook -p 6006"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "echo fail && exit 1"
-    }
-  },
   "eslintConfig": {
     "extends": "react-app",
     "tailwindcss": "^1.4.6"
