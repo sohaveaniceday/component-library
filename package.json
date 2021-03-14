@@ -12,11 +12,11 @@
     "registry": "https://npm.pkg.github.com"
   },
   "lint-staged": {
-    "src/**/*": "eslint && jest"
+    "src/**/*": "test"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "test"
     }
   },
   "devDependencies": {
@@ -76,8 +76,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test": "jest",
-    "start": "start-storybook -p 6006",
-    "pre-commit": "test"
+    "start": "start-storybook -p 6006"
   },
   "eslintConfig": {
     "extends": "react-app",
