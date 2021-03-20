@@ -160,13 +160,11 @@ export const SlideOverContent: React.FC<SlideOverContentProps> = ({
                           <div className='flex my-auto'>
                             {entityType === 'users' ? (
                               <Avatar
-                                notification={{
-                                  placement: 'top',
-                                  color: getNotificationColor(
-                                    entityActive,
-                                    blocked
-                                  ),
-                                }}
+                                notificationPlacement='top'
+                                notificationColor={getNotificationColor(
+                                  entityActive,
+                                  blocked
+                                )}
                                 size={'sm'}
                                 src={picture}
                                 alt={name}

@@ -10,7 +10,8 @@ export type AvatarProps = {
   shape?: 'circular' | 'rounded'
   placeholder?: 'icon' | string
   isButton?: boolean
-  notification?: { placement: 'top' | 'bottom'; color: Color }
+  notificationPlacement?: 'top' | 'bottom'
+  notificationColor?: Color
 } & BaseTypes<JSX.IntrinsicElements['img']>
 
 const createImageOrNotificationSizeClass = (
@@ -41,11 +42,12 @@ export const Avatar: React.FC<AvatarProps> = ({
   list = false,
   size = 'md',
   shape = 'circular',
-  notification,
   placeholder = '',
   isButton,
   cssClasses = [],
   loading = 'lazy',
+  notificationPlacement,
+  notificationColor,
   ...imgProps
 }: AvatarProps) => {
   const [isImageError, setIsImageError] = useState(false)
@@ -56,7 +58,7 @@ export const Avatar: React.FC<AvatarProps> = ({
     placeholder &&
     placeholder !== 'icon'
   )
-  const isBottomNotificationPlacement = notification?.placement === 'bottom'
+  const isBottomNotificationPlacement = notificationPlacement === 'bottom'
   const isRoundedShape = shape === 'rounded'
 
   const imageClassName = [
@@ -68,14 +70,14 @@ export const Avatar: React.FC<AvatarProps> = ({
     `block`,
     `rounded-full`,
     ...createImageOrNotificationSizeClass(size, false),
-    `bg-${notification?.color ? notification.color : 'red'}-400`,
+    `bg-${notificationColor ?? 'red'}-400`,
   ]
 
   const placementClassName = isBottomNotificationPlacement
     ? ['translate-y-1/2']
     : [
         ...createNotificationClassName(
-          notification?.color || ('green' as Color),
+          notificationColor || ('green' as Color),
           size
         ),
         '-translate-y-1/2',
@@ -83,7 +85,7 @@ export const Avatar: React.FC<AvatarProps> = ({
 
   const notificationSpanClassName = getClassName([
     `absolute`,
-    `${notification?.placement}-0`,
+    `${notificationPlacement ?? 'top'}-0`,
     `right-0`,
     `text-white`,
     `shadow-solid`,
@@ -173,11 +175,12 @@ export const Avatar: React.FC<AvatarProps> = ({
     </span>
   )
 
-  const children = notification
-    ? elementWithNotification
-    : isPlaceholder
-    ? placeholderElement
-    : imageElement
+  const children =
+    notificationColor || notificationPlacement
+      ? elementWithNotification
+      : isPlaceholder
+      ? placeholderElement
+      : imageElement
 
   return isButton ? (
     <button className={listClassName}>{children}</button>

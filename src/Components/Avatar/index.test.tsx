@@ -19,7 +19,8 @@ describe('<Avatar>', () => {
       <Avatar
         {...mockProps}
         onClick={onClickMock}
-        notification={{ placement: 'top', color: 'blue' }}
+        notificationPlacement='top'
+        notificationColor='blue'
       />
     )
 
@@ -28,18 +29,6 @@ describe('<Avatar>', () => {
     expect(avatarImage).toHaveProperty('src', mockProps.src)
     fireEvent.click(avatarImage)
     expect(onClickMock).toHaveBeenCalledTimes(1)
-  })
-
-  test('handles notification placement', (): void => {
-    const { container } = render(
-      <Avatar
-        {...mockProps}
-        notification={{ placement: 'bottom', color: 'blue' }}
-        shape="rounded"
-      />
-    )
-    const notication = container.firstElementChild?.childNodes[1]
-    expect(notication).toHaveClass('translate-y-1/2')
   })
 
   test('handles isButton', (): void => {
@@ -52,7 +41,8 @@ describe('<Avatar>', () => {
     const { container } = render(
       <Avatar
         {...mockProps}
-        notification={{ placement: 'top', color: 'blue' }}
+        notificationPlacement='top'
+        notificationColor='blue'
       />
     )
 
@@ -78,7 +68,7 @@ describe('<Avatar>', () => {
   })
 
   test('handles shape', (): void => {
-    const { container } = render(<Avatar placeholder={'JD'} shape="rounded" />)
+    const { container } = render(<Avatar placeholder={'JD'} shape='rounded' />)
     const placeholder = container.firstChild
     expect(placeholder).toHaveClass('rounded-md')
   })
