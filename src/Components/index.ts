@@ -1,5 +1,5 @@
 export * from './form'
-export * from './skeleton'
+export * from './Skeleton'
 export * from './Accordion'
 export * from './Badge'
 export * from './Button'
