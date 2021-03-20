@@ -1,4 +1,4 @@
-export * from './form'
+export * from './TextInput'
 export * from './Skeleton'
 export * from './Accordion'
 export * from './Badge'
