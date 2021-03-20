@@ -10,12 +10,12 @@ export default {
   argTypes: {
     backgroundColor: { control: 'color' },
   },
+  args: {
+    value: 'hello',
+    color: 'red',
+  },
 } as Meta
 
 const Template: Story<ButtonProps> = (args) => <Button {...args} />
 
 export const Primary = Template.bind({})
-Primary.args = {
-  value: 'hello',
-  color: 'red',
-}
