@@ -9,6 +9,10 @@ export default {
   args: { iconName: 'help' },
 } as Meta
 
-const Template: Story<IconProps> = (args) => <Icon {...args} />
+const Template: Story<IconProps> = (args) => (
+  <div className='w-16 h-16'>
+    <Icon {...args} />
+  </div>
+)
 
 export const Primary = Template.bind({})
