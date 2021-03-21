@@ -5,7 +5,9 @@ module.exports = {
   roots: ['<rootDir>/src'],
   preset: 'ts-jest',
   testPathIgnorePatterns: ['<rootDir>/node_modules/'],
-  transform: {},
+  transform: {
+    '.*': 'babel-jest',
+  },
   moduleFileExtensions: [
     ...defaults.moduleFileExtensions,
     'ts',
