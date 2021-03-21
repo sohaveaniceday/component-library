@@ -68,11 +68,5 @@
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": [
-    "src/Components",
-    "src/stories",
-    "custom.d.ts",
-    "src/customHooks",
-    "src/Components/SlideOver/data.ts"
-  ]
+  "include": ["src/*", "custom.d.ts"]
 }

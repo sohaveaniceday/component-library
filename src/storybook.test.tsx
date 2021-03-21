@@ -1,8 +1,5 @@
-import path from 'path'
-
 import initStoryshots from '@storybook/addon-storyshots'
-
-// the required import from the @storybook/addon-storyshots-puppeteer addon
+import path from 'path'
 import { imageSnapshot } from '@storybook/addon-storyshots-puppeteer'
 
 // function to customize the snapshot location
@@ -12,10 +9,17 @@ const getMatchOptions: any = ({ context: { fileName } }: any) => {
   return { customSnapshotsDir: snapshotPath }
 }
 
+let storybookUrl = 'http://localhost:6006'
+
+if (process.env.CI) {
+  // if in CI environment point to static build
+  storybookUrl = `file://${path.join(__dirname, '../storybook-static')}`
+}
+
 initStoryshots({
-  // your own configuration
+  suite: 'Image Storyshots',
   test: imageSnapshot({
-    // invoke the function above here
+    storybookUrl,
     getMatchOptions,
   }),
 })
