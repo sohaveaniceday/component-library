@@ -18,7 +18,7 @@ export const useDelayedUnmounting = (
   }
 
   useEffect(() => {
-    let timeoutId: number
+    let timeoutId: any
     if (mountingState === 'unmounting') {
       timeoutId = setTimeout(() => {
         setMountingState('unmounted')

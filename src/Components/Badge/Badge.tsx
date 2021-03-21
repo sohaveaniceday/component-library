@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
-import { BaseTypes, getClassName, Color, Size } from '../../util'
+import { getClassName } from '../../util'
+import { Color, Size, BaseTypes } from '../../types'
 
-type BadgeProps = {
+export type BadgeProps = {
   content: string
   color?: Color
   size?: Size

@@ -7,10 +7,12 @@
 
 # testing
 /coverage
-/playground
 
 # production
-# /dist
+/dist
+
+# storybook
+/storybook-static
 
 # misc
 .DS_Store

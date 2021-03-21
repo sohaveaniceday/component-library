@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
-import { BaseTypes, Size, Color } from '../../types'
+import { BaseTypes, BaseSize, Color } from '../../types'
 import { getClassName, translateHeightOrWidthClassNameValue } from '../../util'
 import { Icon } from '../Icon'
 
 export type AvatarProps = {
-  color?: Color
-  size?: Size
+  size?: BaseSize
   cssClasses?: string[]
   list?: boolean
   shape?: 'circular' | 'rounded'
   placeholder?: 'icon' | string
   isButton?: boolean
-  notification?: { placement: 'top' | 'bottom'; color: Color }
+  notificationPlacement?: 'top' | 'bottom'
+  notificationColor?: Color
 } & BaseTypes<JSX.IntrinsicElements['img']>
 
 const createImageOrNotificationSizeClass = (
@@ -27,7 +27,7 @@ const createImageOrNotificationSizeClass = (
 
 export const createNotificationClassName = (
   color: Color,
-  size: Size
+  size: BaseSize
 ): string[] => {
   return [
     `block`,
@@ -42,41 +42,42 @@ export const Avatar: React.FC<AvatarProps> = ({
   list = false,
   size = 'md',
   shape = 'circular',
-  notification,
   placeholder = '',
   isButton,
   cssClasses = [],
   loading = 'lazy',
+  notificationPlacement,
+  notificationColor,
   ...imgProps
 }: AvatarProps) => {
   const [isImageError, setIsImageError] = useState(false)
-  const usePlaceholder = !src || isImageError
+  const isPlaceholder = !src || isImageError
 
-  const usePlaceHolderString = !!(
-    usePlaceholder &&
+  const isPlaceHolderString = !!(
+    isPlaceholder &&
     placeholder &&
     placeholder !== 'icon'
   )
-  const useBottomNotificationPlacement = notification?.placement === 'bottom'
-  const useRoundedShape = shape === 'rounded'
+  const isBottomNotificationPlacement = notificationPlacement === 'bottom'
+  const isRoundedShape = shape === 'rounded'
 
   const imageClassName = [
     ...createImageOrNotificationSizeClass(size, true),
-    `rounded-${useRoundedShape ? 'md' : 'full'}`,
+    `rounded-${isRoundedShape ? 'md' : 'full'}`,
   ]
 
   const notificationElementClassName = [
     `block`,
     `rounded-full`,
     ...createImageOrNotificationSizeClass(size, false),
-    `bg-${notification?.color ? notification.color : 'red'}-400`,
+    `bg-${notificationColor ?? 'red'}-400`,
   ]
 
-  const placementClassName = useBottomNotificationPlacement
+  const placementClassName = isBottomNotificationPlacement
     ? ['translate-y-1/2']
     : [
         ...createNotificationClassName(
-          notification?.color || ('green' as Color),
+          notificationColor || ('green' as Color),
           size
         ),
         '-translate-y-1/2',
@@ -84,13 +85,13 @@ export const Avatar: React.FC<AvatarProps> = ({
 
   const notificationSpanClassName = getClassName([
     `absolute`,
-    `${notification?.placement}-0`,
+    `${notificationPlacement ?? 'top'}-0`,
     `right-0`,
     `text-white`,
     `shadow-solid`,
     `rounded-full`,
     [
-      useRoundedShape,
+      isRoundedShape,
       [`transform`, `translate-x-1/2`, `block`, ...placementClassName],
       notificationElementClassName,
     ],
@@ -121,7 +122,7 @@ export const Avatar: React.FC<AvatarProps> = ({
     `overflow-hidden`,
     `inline-block`,
     [
-      usePlaceHolderString,
+      isPlaceHolderString,
       [
         `leading-none`,
         `inline-flex`,
@@ -137,7 +138,7 @@ export const Avatar: React.FC<AvatarProps> = ({
   const elementWithNotificationClassName = getClassName([
     `inline-block`,
     `relative`,
-    [usePlaceholder, placeholderClassName],
+    [isPlaceholder, placeholderClassName],
     ...cssClasses,
   ])
 
@@ -153,7 +154,7 @@ export const Avatar: React.FC<AvatarProps> = ({
 
   const placeholderElement = (
     <span className={placeholderElementClassName}>
-      {usePlaceHolderString ? (
+      {isPlaceHolderString ? (
         <span className={`text-${size} font-medium text-white`}>
           {placeholder}
         </span>
@@ -165,20 +166,21 @@ export const Avatar: React.FC<AvatarProps> = ({
 
   const elementWithNotification = (
     <span className={elementWithNotificationClassName}>
-      {usePlaceholder ? placeholderElement : imageElement}
+      {isPlaceholder ? placeholderElement : imageElement}
       <span className={notificationSpanClassName}>
-        {useRoundedShape && useBottomNotificationPlacement && (
+        {isRoundedShape && isBottomNotificationPlacement && (
           <span className={getClassName([...notificationElementClassName])} />
         )}
       </span>
     </span>
   )
 
-  const children = notification
-    ? elementWithNotification
-    : usePlaceholder
-    ? placeholderElement
-    : imageElement
+  const children =
+    notificationColor || notificationPlacement
+      ? elementWithNotification
+      : isPlaceholder
+      ? placeholderElement
+      : imageElement
 
   return isButton ? (
     <button className={listClassName}>{children}</button>
