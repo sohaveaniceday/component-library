@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-export const useCreation = (factory: Function, deps: any[]) => {
+export const useCreation = (factory: () => void, deps: any[]) => {
   const { current } = useRef({
     deps,
     obj: undefined,

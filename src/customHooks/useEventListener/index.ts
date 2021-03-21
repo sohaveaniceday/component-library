@@ -2,12 +2,11 @@ import { useRef, useEffect } from 'react'
 
 export const useEventListener = (
   eventName: KeyboardEvent['key'],
-  handler: Function,
+  handler: () => void,
   element: EventTarget = document
 ): void => {
-  if (!element) return
   // Create a ref that stores handler
-  const savedHandler = useRef<Function | null>(null)
+  const savedHandler = useRef<any>(null)
 
   // Update ref.current value if handler changes.
   // This allows our effect below to always get latest handler

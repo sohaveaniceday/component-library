@@ -12,7 +12,7 @@ export const useToggle = (defaultValue: any, reverseValue?: any) => {
   const [state, setState] = useState(defaultValue)
   const reverseValueOrigin = useMemo(
     () => (reverseValue === undefined ? !defaultValue : reverseValue),
-    [reverseValue]
+    [reverseValue, defaultValue]
   )
 
   const actions = useMemo(() => {
@@ -32,7 +32,7 @@ export const useToggle = (defaultValue: any, reverseValue?: any) => {
       setLeft,
       setRight,
     }
-  }, [setState])
+  }, [setState, defaultValue, reverseValueOrigin])
 
   return [state, actions]
 }

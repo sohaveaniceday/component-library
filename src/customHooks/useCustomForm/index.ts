@@ -2,7 +2,7 @@ import { useState, FormEvent, ChangeEvent, FocusEvent } from 'react'
 
 type useCustomFormProps = {
   initialValues: any
-  onSubmit: Function | undefined
+  onSubmit: any
   initialInput?: string
 }
 

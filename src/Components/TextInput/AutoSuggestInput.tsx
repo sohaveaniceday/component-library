@@ -20,7 +20,7 @@ export type SuggestionProps = {
 
 type AutoSuggestProps = {
   suggestions: SuggestionProps[]
-  onChangeFunc?: Function
+  onChangeFunc?: (value?: string, name?: string, id?: string) => void
   isLoading: boolean
   forwardRef?: RefObject<HTMLInputElement>
   cssClasses?: string[]

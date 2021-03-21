@@ -1,10 +1,6 @@
 import React from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
-import {
-  Dropdown,
-  DropdownProps,
-  DropdownItemProps,
-} from '../Components/Dropdown'
+import { Dropdown, DropdownProps } from '../Components/Dropdown'
 
 export default {
   title: 'Dropdown',

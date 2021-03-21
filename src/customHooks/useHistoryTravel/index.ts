@@ -45,11 +45,11 @@ export default function useHistoryTravel<T>(initialValue?: T) {
         past: [...past, present],
       })
     },
-    [history, setHistory]
+    [setHistory, past, present]
   )
 
   const _forward = useCallback(
-    (step: number = 1) => {
+    (step = 1) => {
       if (future.length === 0) {
         return
       }
@@ -60,11 +60,11 @@ export default function useHistoryTravel<T>(initialValue?: T) {
         future: _after,
       })
     },
-    [history, setHistory]
+    [setHistory, future, past, present]
   )
 
   const _backward = useCallback(
-    (step: number = -1) => {
+    (step = -1) => {
       if (past.length === 0) {
         return
       }
@@ -76,7 +76,7 @@ export default function useHistoryTravel<T>(initialValue?: T) {
         future: [..._after, present, ...future],
       })
     },
-    [history, setHistory]
+    [setHistory, future, past, present]
   )
 
   const go = useCallback(

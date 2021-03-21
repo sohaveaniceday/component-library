@@ -2,7 +2,8 @@ import React, { useState, useEffect, ReactElement, FC } from 'react'
 import { useDebounce, useEventListener } from '../../customHooks'
 import { BaseTypes } from '../../util'
 
-type FullPageWrapperProps = {} & BaseTypes<JSX.IntrinsicElements['div']>
+type FullPageWrapperProps = Record<string, unknown> &
+  BaseTypes<JSX.IntrinsicElements['div']>
 
 export const FullPageWrapper: FC<FullPageWrapperProps> = ({
   children,

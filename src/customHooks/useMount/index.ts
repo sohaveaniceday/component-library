@@ -8,5 +8,6 @@ export const useMount = (fn: any) => {
     if (fnPersist && typeof fnPersist === 'function') {
       fnPersist()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 }
