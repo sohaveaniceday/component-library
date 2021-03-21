@@ -69,7 +69,8 @@
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
   "include": [
-    "src/components",
+    "src/Components",
+    "src/stories",
     "custom.d.ts",
     "src/customHooks",
     "src/Components/SlideOver/data.ts"
