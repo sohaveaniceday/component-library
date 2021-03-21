@@ -28,14 +28,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
   return (
     <div className={mainClassName}>
       <div
-        className="bg-white rounded-md shadow-xs"
-        role="menu"
-        aria-orientation="vertical"
-        aria-labelledby="options-menu"
+        className='bg-white rounded-md shadow-xs'
+        role='menu'
+        aria-orientation='vertical'
+        aria-labelledby='options-menu'
       >
-        <div className="py-1">
+        <div className='py-1'>
           {search && (
-            <div className="flex items-center px-4 py-2 text-sm text-gray-700">
+            <div className='flex items-center px-4 py-2 text-sm text-gray-700'>
               <Search
                 autoFocus
                 type={'text'}
@@ -60,12 +60,12 @@ export const Dropdown: React.FC<DropdownProps> = ({
             />
           )}
           <div className={search && 'max-h-40 overflow-y-scroll'}>
-            {options.length < 1 && (
+            {options?.length < 1 && (
               <DropdownItem disabled={true} divided={false}>
-                <p className="italic text-gray-400">No results</p>
+                <p className='italic text-gray-400'>No results</p>
               </DropdownItem>
             )}
-            {options.map(
+            {options?.map(
               (
                 {
                   onClick,
